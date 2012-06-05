@@ -1,0 +1,19 @@
+# If reach end of linked list, then failed. Notify superstate
+# that completed with ^tested directly-asserted
+sp {directly-asserted*propose*failure
+   (state <s> ^name directly-asserted
+              ^next-node nil)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name failure)
+}
+
+sp {directly-asserted*apply*failure 
+   (state <s> ^name directly-asserted 
+              ^operator.name failure
+              ^superstate <ss>)
+-->
+   (<ss> ^tested directly-asserted)
+    (write |DEBUG> Direct assertion failed.| (crlf))
+}
+

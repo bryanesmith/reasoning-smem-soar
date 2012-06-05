@@ -1,0 +1,27 @@
+sp {iterate-inner*propose*search-for-symmetric-node*no-axioms
+   (state <s> ^name iterate-inner
+              ^checked axiom-1
+              ^checked axiom-2
+             -^transitive-axiom)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name no-axioms)
+}
+
+sp {iterate-inner*apply*search-for-symmetric-node*no-axioms
+   (state <s> ^operator <op>)
+   (<op> ^name no-axioms)
+-->
+   (<s> ^searched true)
+   (write |DEBUG> No transitive axioms to search. Skipping search.| (crlf))
+}
+
+sp {iterate-inner*propose*search-for-symmetric-node
+   (state <s> ^name iterate-inner
+              ^transitive-axiom <axiom>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search-for-symmetric-node)
+}
+
+

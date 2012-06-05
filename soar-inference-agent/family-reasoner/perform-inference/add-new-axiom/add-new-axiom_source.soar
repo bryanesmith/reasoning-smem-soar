@@ -1,0 +1,10 @@
+source elaborations.soar
+source add-axiom.soar
+pushd add-axiom
+source add-axiom_source.soar
+popd
+source add-property-list.soar
+pushd add-property-list
+source add-property-list_source.soar
+popd
+source finished.soar

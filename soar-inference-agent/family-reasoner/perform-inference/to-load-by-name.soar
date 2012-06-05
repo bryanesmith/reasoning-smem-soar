@@ -1,0 +1,6 @@
+sp {perform-inference*propose*to-load-by-name
+   (state <s> ^to-load-by-name <desc>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name to-load-by-name)
+}

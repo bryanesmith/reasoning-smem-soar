@@ -1,0 +1,20 @@
+sp {iterate-outer*propose*load-inner
+   (state <s> ^name iterate-outer
+             -^to-load
+              ^superstate.inner-property-ptr {<ptr> <> nil })
+   (<ptr> -^propertyName)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-inner
+         ^to-load <ptr>)
+}
+
+sp {iterate-outer*apply*load-inner
+   (state <s> ^name iterate-outer
+              ^operator <op>)
+   (<op> ^name load-inner
+         ^to-load <ptr>)
+-->
+   (<s> ^to-load <ptr>)
+   (write |DEBUG> Added job to load inner property ptr for transitive check.| (crlf))
+}

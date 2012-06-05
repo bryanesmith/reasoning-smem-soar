@@ -1,0 +1,35 @@
+sp {iterate-symmetric-property-linked-list*propose*create-symmetric-equivalent
+   (state <s> ^name iterate-symmetric-property-linked-list
+              ^superstate <ss>)
+   (<ss> -^symmetric-node
+          ^next-property <node>)
+   (<node> ^subject <subject>
+           ^object <object>
+           ^propertyName <property-name>)
+   (<subject> ^name <subject-name>)
+   (<object> ^name <object-name>)
+-->
+   (<s> ^operator <op> + =)
+   # Switch subject and object to obtain symmetric equivalent
+   (<op> ^name create-symmetric-equivalent
+         ^symmetric-subject <object>
+         ^symmetric-object <subject>
+         ^propertyName <property-name>)
+   #(write |DEBUG> | <property-name> |(| <subject-name> |,| <object-name> |)| (crlf))
+}
+
+sp {iterate-symmetric-property-linked-list*apply*create-symmetric-equivalent
+   (state <s> ^name iterate-symmetric-property-linked-list
+              ^superstate <ss>
+              ^operator <op>)
+   (<op> ^name create-symmetric-equivalent
+         ^symmetric-subject <s-subject>
+         ^symmetric-object <s-object>
+         ^propertyName <property-name>)
+-->
+   (<ss> ^symmetric-node <snode>)
+   (<snode> ^subject <s-subject>
+            ^object <s-object>
+            ^propertyName <property-name>)
+   #(write |DEBUG> Created symmetric equivalent | <property-name> |(| <s-object> |,| <s-subject> |) -> | <property-name> |(| <s-subject> |,| <s-object> |)| (crlf))
+}

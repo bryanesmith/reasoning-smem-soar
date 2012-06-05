@@ -1,0 +1,21 @@
+sp {check-next-inverse*propose*process-axiom-to-add
+   (state <s> ^name check-next-inverse
+              ^checked-next true
+              ^axiom-to-add <axiom>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name process-axiom-to-add
+         ^axiom-to-add <axiom>)
+}
+
+sp {check-next-inverse*apply*process-axiom-to-add
+   (state <s> ^name check-next-inverse 
+         ^operator <op>
+         ^superstate.superstate.superstate <ssss>)
+   (<op> ^name process-axiom-to-add 
+         ^axiom-to-add <axiom>) 
+-->
+   (<ssss> ^axiom-to-add <axiom>)
+   (<s> ^axiom-to-add <axiom> -)
+}
+

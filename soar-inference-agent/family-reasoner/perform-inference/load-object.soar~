@@ -1,0 +1,10 @@
+sp {perform-inference*propose*load-object
+   (state <s> ^name perform-inference
+              # Terminate if success
+             -^object
+              # Terminate if fails (error message in result)
+             -^superstate.inference.result)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-object)
+}

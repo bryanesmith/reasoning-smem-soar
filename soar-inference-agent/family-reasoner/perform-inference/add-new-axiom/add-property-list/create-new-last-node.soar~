@@ -1,0 +1,29 @@
+sp {add-property-list*propose*create-new-last-node
+   (state <s> ^name add-property-list
+              ^superstate.superstate <sss> 
+             -^new-last-node)
+   (<sss> ^axiom-to-add <axiom>)
+   (<axiom> ^subject <subject>
+            ^object <object>
+            ^predicate <predicate>)
+   (<predicate> ^name <predicate-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name create-new-last-node
+         ^new-last-node <new-last-node>)
+   (<new-last-node> ^propertyName <predicate-name>
+                    ^next nil
+                    ^subject <subject>
+                    ^object <object>)
+}
+
+sp {add-property-list*apply*create-new-last-node 
+   (state <s> ^name add-property-list 
+                    ^operator <op>)
+   (<op> ^name create-new-last-node 
+         ^new-last-node <new-last-node>)
+-->
+   (<s> ^new-last-node <new-last-node>)
+   (write |DEBUG> Created new last node for property chain: | <new-last-node> (crlf))
+}
+

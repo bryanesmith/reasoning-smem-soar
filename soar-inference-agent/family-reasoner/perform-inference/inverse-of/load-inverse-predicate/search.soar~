@@ -1,0 +1,17 @@
+sp {load-inverse-predicate*propose*search
+   (state <s> ^name load-inverse-predicate 
+             -^smem.command.retrieve)
+-->  
+   (<s> ^operator <op> + =)
+   (<op> ^name search)
+}
+
+sp {load-inverse-predicate*apply*search
+   (state <s> ^name load-inverse-predicate 
+              ^operator.name search
+              ^superstate.inverse-predicate <inverse-predicate> 
+              ^smem.command <command>)
+-->
+   (<command> ^retrieve <inverse-predicate>)
+   (write |DEBUG> Retrieving inverse predicate: | <inverse-predicate> (crlf))
+}

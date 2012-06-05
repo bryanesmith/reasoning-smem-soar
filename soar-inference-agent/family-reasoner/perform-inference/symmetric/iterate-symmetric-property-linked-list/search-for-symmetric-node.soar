@@ -1,0 +1,8 @@
+sp {iterate-symmetric-property-linked-list*propose*search-for-symmetric-node
+   (state <s> ^name iterate-symmetric-property-linked-list
+              ^superstate.symmetric-node <snode>
+             -^searched)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search-for-symmetric-node)
+}

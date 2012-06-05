@@ -1,0 +1,8 @@
+source elaborations.soar
+source finished.soar
+source init-pointers.soar
+source iterate-outer.soar
+pushd iterate-outer
+source iterate-outer_source.soar
+popd
+source load-outer.soar

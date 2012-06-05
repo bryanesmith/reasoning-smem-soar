@@ -1,0 +1,84 @@
+# Need to load object from next node, and check if subject has
+# ^<predicate>.name <subject>.
+#
+# Note that search and retrieve only fire if inverse predicate's
+# object not loaded. In my initial tests, it is.
+sp {check-next-inverse*propose*search
+   (state <s> ^name check-next-inverse
+              ^superstate.superstate.predicate <predicate>
+              ^superstate.superstate.inverse-predicate <inverse-predicate>
+              ^superstate.superstate.next-inverse-node <next-inverse-node>
+             -^smem.command.retrieve) 
+   (<next-inverse-node> ^object <inverse-object>)
+   (<inverse-object> -^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^predicate <predicate>
+         ^inverse-predicate <inverse-predicate>
+         ^next-inverse-node <next-inverse-node>)
+}
+
+# Monitor: to show that predicate and inverse predicate are loaded
+sp {check-next-inverse*monitor*search
+   (state <s> ^name check-next-inverse 
+         ^operator <op>)
+   (<op> ^name search 
+         ^predicate <predicate>
+         ^inverse-predicate <inverse-predicate>
+         ^next-inverse-node <next-inverse-node>)
+   (<predicate> ^name <predicate-name>)
+   (<inverse-predicate> ^name <inverse-predicate-name>)
+-->
+   (write |DEBUG> Found predicate | <predicate-name> | (| <predicate> |), inverse predicate | <inverse-predicate-name> | (| <inverse-predicate> |), next inverse node | <next-inverse-node> |.| (crlf))
+}
+
+# Assert: predicate is loaded
+sp {check-next-inverse*assert*search*predicate-loaded
+   (state <s> ^name check-next-inverse 
+         ^operator <op>)
+   (<op> ^name search 
+         ^predicate <predicate>)
+   (<predicate> -^name)
+-->
+   (write |ASSERTION FAILED: predicate is not loaded, but should be. Verify that this must be loaded before checking next inverse predicate occurs.| (crlf))
+   (halt)
+}
+
+# Assert: inverse-predicate is loaded
+sp {check-next-inverse*assert*search*inverse-predicate-loaded
+   (state <s> ^name check-next-inverse 
+         ^operator <op>)
+   (<op> ^name search 
+         ^inverse-predicate <inverse-predicate>)
+   (<inverse-predicate> -^name) 
+-->
+   (write |ASSERTION FAILED: inverse-predicate is not loaded, but should be. Verify that this must be loaded before checking next inverse predicate occurs.| (crlf))
+   (halt)
+}
+
+# Assert: next-inverse-node is loaded
+sp {check-next-inverse*assert*search*next-inverse-node-loaded
+   (state <s> ^name check-next-inverse 
+         ^operator <op>)
+   (<op> ^name search
+         ^next-inverse-node <next-inverse-node>)
+   (<next-inverse-node> -^subject)
+-->
+   (write |ASSERTION FAILED: next-inverse-node is not loaded, but should be. Verify that this must be loaded before checking next inverse predicate occurs.| (crlf))
+   (halt)
+}
+
+sp {check-next-inverse*apply*search
+   (state <s> ^name check-next-inverse 
+         ^operator <op>
+         ^smem.command <command>) 
+   (<op> ^name search 
+         ^predicate <predicate>
+         ^inverse-predicate <inverse-predicate>
+         ^next-inverse-node <next-inverse-node>)
+   (<next-inverse-node> ^object <inverse-object>)
+-->
+   (<command> ^retrieve <inverse-object>)
+   #(write |DEBUG> Retrieving object from inverse predicate: | <inverse-object> (crlf))
+}

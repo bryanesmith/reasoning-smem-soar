@@ -1,0 +1,60 @@
+sp {load-object*propose*retrieve*success
+   (state <s> ^name load-object
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+}
+
+sp {load-object*apply*retrieve*success
+   (state <s> ^name load-object
+              ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+-->
+   (<ss> ^object <retrieved>)
+   (write |DEBUG> Retrieved object: | <retrieved> (crlf))
+}
+
+sp {load-object*propose*retrieve*failure
+   (state <s> ^name load-object
+              ^smem.result.failure)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve-failure)
+}
+
+sp {load-object*apply*retrieve*failure
+   (state <s> ^operator <op>
+              ^superstate.superstate.inference <inference>)
+   (<op> ^name retrieve-failure)
+-->
+   (<inference> ^result |Failure: Cannot find object|)
+   (write |DEBUG> Failed to retrieve object| (crlf))
+}
+ 
+# Clean up
+sp {load-object*apply*retrieve*clean-up*success
+   (state <s> ^name load-object
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name retrieve-success)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   (write |DEBUG> Cleaned up query for object (success) | (crlf))
+}
+
+sp {load-object*apply*retrieve*clean-up*failure
+   (state <s> ^name load-object
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name retrieve-failure)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   (write |DEBUG> Cleaned up query for object (failure) | (crlf))
+}
+

@@ -1,0 +1,31 @@
+sp {search-for-symmetric-node*propose*search
+   (state <s> ^name search-for-symmetric-node
+             -^smem.command.query
+              ^superstate.superstate.symmetric-node <snode>)
+   (<snode> ^subject <subject>
+            ^object <object>
+            ^propertyName <property-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^subject <subject>
+         ^object <object>
+         ^propertyName <property-name>)
+}
+
+sp {search-for-symmetric-node*apply*search
+   (state <s> ^name search-for-symmetric-node
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name search
+         ^subject <subject>
+         ^object <object>
+         ^propertyName <property-name>)
+-->
+   (<command> ^query <query>)
+   (<query> ^subject <subject>
+            ^object <object>
+            ^propertyName <property-name>)
+   (write |DEBUG> Checking if symmetric property axiom exists: | <property-name> |(| <subject> |,| <object> |)| (crlf)) 
+}
+

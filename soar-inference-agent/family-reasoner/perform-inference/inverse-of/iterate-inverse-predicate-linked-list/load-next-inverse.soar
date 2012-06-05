@@ -1,0 +1,8 @@
+sp {iterate-inverse-predicate-linked-list*propose*load-next-inverse
+   (state <s> ^name iterate-inverse-predicate-linked-list
+              ^superstate.next-inverse-node {<next-node> <> nil})
+   (<next-node> -^object)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-next-inverse)
+}

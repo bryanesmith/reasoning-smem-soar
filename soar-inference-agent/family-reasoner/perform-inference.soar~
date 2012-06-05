@@ -1,0 +1,13 @@
+sp {family-reasoner*propose*perform-inference
+   (state <s> ^name family-reasoner
+              ^inference.query <query>
+             -^inference.result)
+   (<query> ^subject { <subject> <> nil}
+            ^object { <object> <> nil}
+            ^predicate { <predicate> <> nil})
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name perform-inference)
+   
+   (write |Inference query: | <predicate> |(| <subject> |,| <object> |)| (crlf))
+}

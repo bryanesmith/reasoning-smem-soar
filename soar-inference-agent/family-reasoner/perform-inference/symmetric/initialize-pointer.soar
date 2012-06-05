@@ -1,0 +1,20 @@
+sp {symmetric*propose*initialize-pointer
+   (state <s> ^name symmetric
+             -^next-property
+              ^superstate.property-linked-list <list>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name initialize-pointer
+         ^property-linked-list <list>)
+}
+
+sp {symmetric*apply*initialize-pointer
+   (state <s> ^name symmetric
+              ^operator <op>)
+   (<op> ^name initialize-pointer 
+         ^property-linked-list <list>)
+   (<list> ^next <node>)
+-->
+   (<s> ^next-property <node>)
+   #(write |DEBUG> Initialized symmetric with first node in list: | <node> (crlf))
+}

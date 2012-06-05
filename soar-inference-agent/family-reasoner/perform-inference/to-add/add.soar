@@ -1,0 +1,194 @@
+#sp {to-add*propose*add
+#   (state <s> ^name to-add
+#              ^superstate <ss>
+#             -^smem.command.store)
+#   (<ss> ^to-add <to-add>)
+#-->
+#   (<s> ^operator <op> + =)
+#   (<op> ^name add
+#         ^to-add <to-add>)
+#}
+#
+#sp {to-add*apply*add
+#   (state <s> ^name to-add
+#              ^operator <op>
+#              ^smem.command <command>)
+#   (<op> ^name add
+#         ^to-add <to-add>)
+#-->
+#   (<command> ^store <to-add>)
+#   #(write |DEBUG> Attempting to store item to SMem: | <to-add> (crlf))
+#}
+#
+#sp {to-add*propose*add*success
+#   (state <s> ^name to-add
+#              ^smem.result.success <stored>)
+#-->
+#   (<s> ^operator <op> + =)
+#   (<op> ^name success
+#         ^stored <stored>)
+#}
+#
+#sp {to-add*apply*add*success
+#   (state <s> ^name to-add
+#              ^operator <op>
+#              ^superstate <ss>)
+#   (<op> ^name success
+#         ^stored <stored>)
+#   (<ss> ^to-add <stored>)
+#-->
+#   (<ss> ^to-add <stored> -)
+#   #(write |DEBUG> Stored item to SMem: | <stored> |. Removing job from working memory.| (crlf))
+#}
+#
+#sp {to-add*propose*add*failed
+#   (state <s> ^name to-add
+#              ^smem.result.failure <failure>)
+#-->
+#   (write |ASSERTION FAILED: failed to add to SMem. Message: | <failure> (crlf))
+#   (halt)
+#}
+#
+#
+
+#
+# Is bug of missing edges (such as name) due to augmentations
+# not loaded for saved node
+#
+
+# No subject nor object
+sp {to-add*propose*add*no-subject-nor-object
+   (state <s> ^name to-add
+             -^to-load
+              ^superstate <ss>
+             -^smem.command.store)
+   (<ss> ^to-add <to-add>)
+   (<to-add> -^subject
+             -^object)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name add
+         ^to-add <to-add>)
+}
+
+# Subject and object, but loaded
+sp {to-add*propose*add*subject-and-object-loaded
+   (state <s> ^name to-add
+              -^to-load
+              ^superstate <ss>
+             -^smem.command.store)
+   (<ss> ^to-add <to-add>)
+   (<to-add> ^subject <subject>
+             ^object <object>)
+   (<subject> ^name <subject-name>)
+   (<object> ^name <object-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name add
+         ^to-add <to-add>)
+}
+
+# Subject and object, but loaded
+sp {to-add*propose*load-first*both
+   (state <s> ^name to-add
+              -^to-load
+              ^superstate <ss>
+             -^smem.command.store)
+   (<ss> ^to-add <to-add>)
+   (<to-add> ^subject <subject>
+             ^object <object>)
+   (<subject> -^name)
+   (<object> -^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-first
+         ^load <subject>
+         ^load <object>)
+}
+
+# Subject not loaded
+sp {to-add*propose*load-first*subject
+   (state <s> ^name to-add
+              -^to-load
+              ^superstate <ss>
+             -^smem.command.store)
+   (<ss> ^to-add <to-add>)
+   (<to-add> ^subject <subject>
+             ^object <object>)
+   (<subject> -^name)
+   (<object> ^name <object-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-first
+         ^load <subject>)
+}
+
+# Object not loaded
+sp {to-add*propose*load-first*object
+   (state <s> ^name to-add
+              -^to-load 
+              ^superstate <ss>
+             -^smem.command.store)
+   (<ss> ^to-add <to-add>)
+   (<to-add> ^subject <subject>
+             ^object <object>)
+   (<subject> ^name <subject-name>)
+   (<object> -^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-first
+         ^load <subject>
+         ^load <object>)
+}
+
+# Load anything that needs to be loaded first
+sp {to-add*apply*load-first
+   (state <s> ^operator <op>)
+   (<op> ^name load-first 
+         ^load <load-me>)
+-->
+   (<s> ^to-load <load-me>)
+   (write |DEBUG> While trying to store, found unloaded augmentation: | <load-me> |. Loading before storing.| (crlf))
+}
+
+
+sp {to-add*apply*add
+   (state <s> ^name to-add
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name add
+         ^to-add <to-add>)
+-->
+   (<command> ^store <to-add>)
+   #(write |DEBUG> Attempting to store item to SMem: | <to-add> (crlf))
+}
+
+sp {to-add*propose*add*success
+   (state <s> ^name to-add
+              ^smem.result.success <stored>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name success
+         ^stored <stored>)
+}
+
+sp {to-add*apply*add*success
+   (state <s> ^name to-add
+              ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name success
+         ^stored <stored>)
+   (<ss> ^to-add <stored>)
+-->
+   (<ss> ^to-add <stored> -)
+   #(write |DEBUG> Stored item to SMem: | <stored> |. Removing job from working memory.| (crlf))
+}
+
+sp {to-add*propose*add*failed
+   (state <s> ^name to-add
+              ^smem.result.failure <failure>)
+-->
+   (write |ASSERTION FAILED: failed to add to SMem. Message: | <failure> (crlf))
+   (halt)
+}
+

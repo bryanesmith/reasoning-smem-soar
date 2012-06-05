@@ -1,0 +1,9 @@
+# Note that if retrieval retrieves, automatically leaves substate.
+# Hence all we need to worry about is failure condition.
+sp {load-next*propose*failed
+   (state <s> ^name load-next
+              ^smem.result.failure)
+-->
+   (write |Assertion failed: next was not null, but not found in property linked list. Programmer error?| (crlf))
+   (halt)
+}

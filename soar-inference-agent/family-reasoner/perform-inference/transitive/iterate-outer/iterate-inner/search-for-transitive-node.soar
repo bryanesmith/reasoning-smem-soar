@@ -1,0 +1,42 @@
+sp {iterate-inner*propose*search-for-transitive-node*no-axioms-1
+   (state <s> ^name iterate-inner
+              ^checked axiom-1
+             -^searched axiom-1
+             -^transitive-axiom.label axiom-1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name no-axiom
+         ^label axiom-1)
+}
+
+sp {iterate-inner*propose*search-for-transitive-node*no-axioms-2
+   (state <s> ^name iterate-inner
+              ^checked axiom-2
+             -^searched axiom-2
+             -^transitive-axiom.label axiom-2)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name no-axiom
+         ^label axiom-2)
+}
+
+sp {iterate-inner*apply*search-for-transitive-node*no-axioms
+   (state <s> ^operator <op>)
+   (<op> ^name no-axiom 
+         ^label <label>)
+-->
+   (<s> ^searched <label>)
+   #(write |DEBUG> No transitive axiom for | <label> | to search. Skipping search.| (crlf))
+}
+
+sp {iterate-inner*propose*search-for-transitive-node
+   (state <s> ^name iterate-inner
+              ^transitive-axiom.label <label>
+             -^searched <label>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search-for-transitive-node
+         ^label <label>)
+}
+
+

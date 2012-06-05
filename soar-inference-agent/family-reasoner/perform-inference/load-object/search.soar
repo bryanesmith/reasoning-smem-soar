@@ -1,0 +1,24 @@
+sp {load-object*propose*search
+   (state <s> ^name load-object 
+              ^superstate.superstate.inference.query <query>
+             -^smem.command.query)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^query <query>)
+}
+
+sp {load-object*apply*search  
+   (state <s> ^name load-object 
+         ^operator <op>
+         ^smem.command <command>)
+   (<op> ^name search
+         ^query <userquery>)
+   (<userquery> ^object <object>)
+-->
+   (<command> ^query <query>)
+   (<query> ^name <object>)
+   
+   #(write |DEBUG> Searching for object: | <object> (crlf))
+}
+

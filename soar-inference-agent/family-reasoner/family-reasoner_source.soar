@@ -1,0 +1,14 @@
+source _firstload.soar
+pushd all
+source all_source.soar
+popd
+pushd elaborations
+source elaborations_source.soar
+popd
+source finished-query.soar
+source initialize-family-reasoner.soar
+source load-query.soar
+source perform-inference.soar
+pushd perform-inference
+source perform-inference_source.soar
+popd

@@ -1,0 +1,64 @@
+sp {iterate-symmetric-property-linked-list*propose*to-load*both
+   (state <s> ^name iterate-symmetric-property-linked-list
+              ^superstate <ss>
+             -^to-load)
+   (<ss> -^symmetric-node
+          ^next-property <node>)
+   (<node> ^subject <subject>
+           ^object <object>
+           ^propertyName <property-name>)
+   (<subject> -^name)
+   (<object> -^name)
+-->
+   (<s> ^operator <op> + =)
+   # Switch subject and object to obtain symmetric equivalent
+   (<op> ^name to-load
+         ^to-load <object>
+         ^to-load <subject>)
+}
+
+sp {iterate-symmetric-property-linked-list*propose*to-load*object
+   (state <s> ^name iterate-symmetric-property-linked-list
+              ^superstate <ss>
+             -^to-load)
+   (<ss> -^symmetric-node
+          ^next-property <node>)
+   (<node> ^subject <subject>
+           ^object <object>
+           ^propertyName <property-name>)
+   (<subject> ^name)
+   (<object> -^name)
+-->
+   (<s> ^operator <op> + =)
+   # Switch subject and object to obtain symmetric equivalent
+   (<op> ^name to-load
+         ^to-load <object>)
+}
+
+sp {iterate-symmetric-property-linked-list*propose*to-load*subject
+   (state <s> ^name iterate-symmetric-property-linked-list
+              ^superstate <ss>
+             -^to-load)
+   (<ss> -^symmetric-node
+          ^next-property <node>)
+   (<node> ^subject <subject>
+           ^object <object>
+           ^propertyName <property-name>)
+   (<subject> -^name)
+   (<object> ^name)
+-->
+   (<s> ^operator <op> + =)
+   # Switch subject and object to obtain symmetric equivalent
+   (<op> ^name to-load
+         ^to-load <subject>)
+}
+
+sp {apply*to-load
+   (state <s> ^name iterate-symmetric-property-linked-list
+         ^operator <op>)
+   (<op> ^name to-load
+               ^to-load <node>)
+-->
+   (<s> ^to-load <node>)
+#   (write |DEBUG> loading node for symmetric check: | <node> (crlf))
+}

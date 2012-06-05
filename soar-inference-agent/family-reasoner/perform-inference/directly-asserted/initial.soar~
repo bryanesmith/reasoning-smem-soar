@@ -1,0 +1,19 @@
+sp {directly-asserted*propose*initial
+   (state <s> ^name directly-asserted
+             -^next-node)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name initial)
+}
+
+sp {directly-asserted*apply*initial
+   (state <s> ^name directly-asserted 
+         ^operator <op>
+         ^superstate.property-linked-list.next <next>)
+   (<op> ^name initial)
+-->
+   (<s> ^next-node <next>)
+   
+   (write |DEBUG> Initialized directly asserted: | <next> (crlf))
+}
+

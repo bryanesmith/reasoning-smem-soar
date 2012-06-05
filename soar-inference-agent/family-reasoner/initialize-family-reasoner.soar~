@@ -1,0 +1,136 @@
+# 
+sp {propose*initialize-family-reasoner
+   (state <s> ^superstate nil
+             -^name)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name initialize-family-reasoner)
+}
+# 
+sp {apply*initialize-family-reasoner
+   (state <s> ^operator <op>)
+   (<op> ^name initialize-family-reasoner)
+-->
+   (<s> ^name family-reasoner)
+}
+# 
+sp {apply*initialize-family-reasoner-with-query
+   (state <s> ^operator.name initialize-family-reasoner
+              ^inference.query <query>)
+-->
+   (<s> ^next-query <next-1>)
+   
+   (<next-1> ^query <query-1>
+             ^next-query <next-2>)
+   
+   (<next-2> ^query <query-2>
+             ^next-query <next-3>)
+   
+   (<next-3> ^query <query-3>
+             ^next-query <next-4>)
+   
+   (<next-4> ^query <query-4>
+             ^next-query <next-5>)
+   
+   (<next-5> ^query <query-5>
+             ^next-query <next-6>)
+   
+   (<next-6> ^query <query-6>
+             ^next-query <next-7>)
+   
+   (<next-7> ^query <query-7>
+             ^next-query <next-8>)
+   
+   (<next-8> ^query <query-8>
+             ^next-query <next-9>)
+   
+   (<next-9> ^query <query-9>
+             ^next-query <next-10>)
+   
+   (<next-10> ^query <query-10>
+             ^next-query <next-11>)
+   
+   (<next-11> ^query <query-11>
+             ^next-query nil)
+   
+   # --------------------------------------------------
+   #  Query #1:
+   #    Directly asserted.
+   # --------------------------------------------------
+   (<query-1> ^subject |Joe|
+            ^predicate |hasMother|
+            ^object |Heather|)
+#   # --------------------------------------------------
+#   #  Query #2:
+#   #    Directly asserted.
+#   # --------------------------------------------------
+   (<query-2> ^subject |Joe|
+            ^predicate |hasFather|
+            ^object |Steve|)
+#   # --------------------------------------------------
+#   #  Query #3:
+#   #    Directly asserted.
+#   # --------------------------------------------------
+   (<query-3> ^subject |Joe|
+            ^predicate |hasSibling|
+            ^object |Amy|)
+#   # --------------------------------------------------
+#   #  Query #4:
+#   #    Directly asserted.
+#   # --------------------------------------------------
+   (<query-4> ^subject |Joe|
+            ^predicate |hasSibling|
+            ^object |Matthew|)
+#   # --------------------------------------------------
+#   #  Query #5:
+#   #    Inferred by inversOf direct assertion.
+#   # --------------------------------------------------
+   (<query-5> ^subject |Heather|
+            ^predicate |isMotherOf|
+            ^object |Joe|)
+#   # --------------------------------------------------
+#   #  Query #6:
+#   #    Inferred by inversOf direct assertion.
+#   # --------------------------------------------------
+   (<query-6> ^subject |Steve|
+            ^predicate |isFatherOf|
+            ^object |Joe|)
+#   # --------------------------------------------------
+#   #  Query #7:
+#   #    Infered by reflexive nature of 
+#   #    hasSibling
+#   # --------------------------------------------------
+   (<query-7> ^subject |Matthew|
+            ^predicate |hasSibling|
+            ^object |Joe|)
+#   # --------------------------------------------------
+#   #  Query #8:
+#   #    Infered by transitive/reflexive nature of 
+#   #    hasSibling
+#   # --------------------------------------------------
+   (<query-8> ^subject |Matthew|
+            ^predicate |hasSibling|
+            ^object |Amy|)
+#   # --------------------------------------------------
+#   #  Query #9:
+#   #   False, but will be uncertain.
+#   # --------------------------------------------------
+   (<query-9> ^subject |Matthew|
+            ^predicate |hasSibling|
+            ^object |Steve|)
+#   # --------------------------------------------------
+#   #  Query #10:
+#   #    True by property chain
+#   # --------------------------------------------------
+   (<query-10> ^subject |Matthew|
+            ^predicate |hasFather|
+            ^object |Steve|)
+#   # --------------------------------------------------
+#   #  Query #11:
+#   #    True by property chain and inverseOf
+#   # --------------------------------------------------
+   (<query-11> ^subject |Steve|
+            ^predicate |isFatherOf|
+            ^object |Matthew|)
+}
+

@@ -1,0 +1,8 @@
+source elaborations.soar
+source create-symmetric-equivalent.soar
+source next.soar
+source search-for-symmetric-node.soar
+pushd search-for-symmetric-node
+source search-for-symmetric-node_source.soar
+popd
+source to-load.soar

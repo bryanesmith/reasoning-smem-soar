@@ -1,0 +1,29 @@
+# If nothing to add (axiom already existed OR just added),
+# time to load next node
+sp {check-next-inverse*propose*next-inverse-node
+   (state <s> ^name check-next-inverse
+              ^checked-next true
+             -^axiom-to-add 
+              ^superstate.superstate <sss>)
+   (<sss> ^next-inverse-node <next-inverse-node>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name next-inverse-node
+         ^super-duper-state <sss>
+         ^next-inverse-node <next-inverse-node>)
+}
+
+sp {check-next-inverse*apply*next-inverse-node
+   (state <s> ^name check-next-inverse
+              ^operator <op>)
+   (<op> ^name next-inverse-node 
+         ^super-duper-state <sss>
+         ^next-inverse-node <prev>)
+   (<prev> ^next <next>)
+-->
+   (<sss> ^next-inverse-node <prev> -)
+   (<sss> ^next-inverse-node <next>)
+   
+   (write |DEBUG> Updated pointer to next node from | <prev> | to | <next> (crlf))
+}
+

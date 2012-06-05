@@ -1,0 +1,42 @@
+sp {to-load-by-name*propose*retrieve*success
+   (state <s> ^name to-load-by-name
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+}
+
+sp {to-load-by-name*apply*retrieve*success
+   (state <s> ^name to-load-by-name
+              ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+   (<retrieved> ^name <node-name>)
+   (<ss> ^to-load-by-name <desc>)
+   (<desc> ^name <node-name>
+           ^name-for-augmentation <aug-name>)
+-->
+   (<ss> ^to-load-by-name <desc> -)
+   (<ss> ^<aug-name> <retrieved>)
+   #(write |DEBUG> Retrieved node | <node-name> | and added to superstate as ^| <aug-name> |. Removing job.| (crlf))
+}
+
+sp {to-load-by-name*apply*retrieve*success*clean-up
+   (state <s> ^name to-load-by-name
+              ^operator.name retrieve-success
+              ^smem.command <command>)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   #(write |DEBUG> Cleaning up after retrieving node.| (crlf))
+}
+
+sp {to-load-by-name*propose*retrieve*failure
+   (state <s> ^name to-load-by-name
+              ^smem.result.failure)
+-->
+   (write |ASSERTION FAILED: Failed to retrieve node by name. Programmer error?| (crlf))
+   (halt)
+}

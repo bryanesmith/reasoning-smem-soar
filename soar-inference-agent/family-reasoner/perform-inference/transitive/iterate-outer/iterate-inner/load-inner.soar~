@@ -1,0 +1,38 @@
+sp {iterate-inner*propose*load-inner*subject
+   (state <s> ^name iterate-inner
+             -^to-load
+              ^superstate.superstate <sss>)
+   (<sss> ^inner-property-ptr <ptr>)
+   (<ptr> ^subject <subject>)
+   (<subject> -^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-inner
+         ^to-load <subject>
+         ^description subject)
+}
+
+sp {iterate-inner*propose*load-inner*object
+   (state <s> ^name iterate-inner
+             -^to-load 
+              ^superstate.superstate <sss>)
+   (<sss> ^inner-property-ptr <ptr>)
+   (<ptr> ^object <object>)
+   (<object> -^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-inner
+         ^to-load <object>
+         ^description object)
+}
+
+sp {iterate-inner*apply*load-inner
+   (state <s> ^name iterate-inner 
+         ^operator <op>)
+   (<op> ^name load-inner 
+         ^to-load <node>
+         ^description <desc>)
+-->
+   (<s> ^to-load <node>)
+#   (write |DEBUG> Loading inner ptr's | <desc> |:| <node> (crlf))
+}

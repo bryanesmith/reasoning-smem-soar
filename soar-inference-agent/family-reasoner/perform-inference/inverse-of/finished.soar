@@ -1,0 +1,16 @@
+sp {inverse-of*propose*finished
+   (state <s> ^name inverse-of
+              ^next-inverse-node nil)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished)
+}
+
+sp {inverse-of*apply*finished*failed
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>)
+-->
+   (<ss> ^tested inverse-of)
+   #(write |DEBUG> Finished inverse-of, leaving.| (crlf))
+}

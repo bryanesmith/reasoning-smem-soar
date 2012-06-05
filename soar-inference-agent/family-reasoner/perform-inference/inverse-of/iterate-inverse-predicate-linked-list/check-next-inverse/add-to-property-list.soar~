@@ -1,0 +1,20 @@
+sp {check-next-inverse*propose*add-to-property-list
+   (state <s> ^name check-next-inverse
+              ^to-add <axiom>
+             -^added property-list)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name add-to-property-list 
+         ^to-add <axiom>)
+}
+
+# DEBUG> Remove this -- it's a temporary test
+sp {check-next-inverse*apply*add-to-property-list
+   (state <s> ^name check-next-inverse 
+         ^operator <op>)
+   (<op> ^name add-to-property-list 
+         ^to-add <axiom>) 
+-->
+   (<s> ^added property-list)
+   (write |DEBUG> Pretending to add: property list| (crlf))
+}

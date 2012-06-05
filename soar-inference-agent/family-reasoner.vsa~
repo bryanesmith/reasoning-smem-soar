@@ -1,0 +1,123 @@
+VERSION 4
+/family-reasoner/family-reasoner.dm
+0	ROOT family-reasoner family-reasoner 1
+1	0	FOPERATOR _firstload _firstload.soar 2
+2	0	FOLDER all all 3
+3	0	FOLDER elaborations elaborations 4
+4	3	FOPERATOR _all _all.soar 5
+5	3	FOPERATOR top-state top-state.soar 6
+6	0	OPERATOR finished-query finished-query.soar 7
+7	0	OPERATOR initialize-family-reasoner initialize-family-reasoner.soar 8
+8	0	OPERATOR load-query load-query.soar 9
+9	0	HLOPERATOR perform-inference perform-inference.soar perform-inference 11 10
+10	9	FOPERATOR elaborations elaborations.soar 11
+11	9	HLOPERATOR add-new-axiom add-new-axiom.soar add-new-axiom 148 12
+12	11	FOPERATOR elaborations elaborations.soar 13
+13	11	HLOPERATOR add-axiom add-axiom.soar add-axiom 159 14
+14	13	FOPERATOR elaborations elaborations.soar 15
+15	11	HLOPERATOR add-property-list add-property-list.soar add-property-list 164 16
+16	15	FOPERATOR elaborations elaborations.soar 17
+17	15	OPERATOR create-new-last-node create-new-last-node.soar 18
+18	15	OPERATOR find-prev-last-node find-prev-last-node.soar 19
+19	15	OPERATOR finished finished.soar 20
+20	15	OPERATOR store-new-last-node store-new-last-node.soar 21
+21	15	OPERATOR update-and-store-prev-last-node update-and-store-prev-last-node.soar 22
+22	11	OPERATOR finished finished.soar 23
+23	9	HLOPERATOR directly-asserted directly-asserted.soar directly-asserted 43 24
+24	23	FOPERATOR elaborations elaborations.soar 25
+25	23	OPERATOR failure failure.soar 26
+26	23	OPERATOR initialize initialize.soar 27
+27	23	HLOPERATOR load-next load-next.soar load-next 67 28
+28	27	FOPERATOR elaborations elaborations.soar 29
+29	23	OPERATOR success success.soar 30
+30	23	OPERATOR update-next update-next.soar 31
+31	9	OPERATOR failed failed.soar 32
+32	9	HLOPERATOR inverse-of inverse-of.soar inverse-of 82 33
+33	32	FOPERATOR elaborations elaborations.soar 34
+34	32	OPERATOR finished finished.soar 35
+35	32	OPERATOR initialize-inverse-predicate initialize-inverse-predicate.soar 36
+36	32	OPERATOR initialize-inverse-predicate-linked-list-pointer initialize-inverse-predicate-linked-list-pointer.soar 37
+37	32	HLOPERATOR iterate-inverse-predicate-linked-list iterate-inverse-predicate-linked-list.soar iterate-inverse-predicate-linked-list 109 38
+38	37	FOPERATOR elaborations elaborations.soar 39
+39	37	HLOPERATOR check-next-inverse check-next-inverse.soar check-next-inverse 125 40
+40	39	FOPERATOR elaborations elaborations.soar 41
+41	39	OPERATOR check-inverse check-inverse.soar 42
+42	39	OPERATOR next-inverse-node next-inverse-node.soar 43
+43	39	OPERATOR process-axiom-to-add process-axiom-to-add.soar 44
+44	39	OPERATOR retrieve retrieve.soar 45
+45	39	OPERATOR search search.soar 46
+46	37	HLOPERATOR load-next-inverse load-next-inverse.soar load-next-inverse 114 47
+47	46	FOPERATOR elaborations elaborations.soar 48
+48	46	OPERATOR retrieve retrieve.soar 49
+49	46	OPERATOR search search.soar 50
+50	37	OPERATOR load-object load-object.soar 51
+51	37	OPERATOR load-subject load-subject.soar 52
+52	32	HLOPERATOR load-inverse-predicate load-inverse-predicate.soar load-inverse-predicate 89 53
+53	52	FOPERATOR elaborations elaborations.soar 54
+54	32	HLOPERATOR load-inverse-predicate-linked-list load-inverse-predicate-linked-list.soar load-inverse-predicate-linked-list 98 55
+55	54	FOPERATOR elaborations elaborations.soar 56
+56	9	HLOPERATOR load-object load-object.soar load-object 34 57
+57	56	FOPERATOR elaborations elaborations.soar 58
+58	56	OPERATOR retrieve retrieve.soar 59
+59	56	OPERATOR search search.soar 60
+60	9	HLOPERATOR load-predicate load-predicate.soar load-predicate 27 61
+61	60	FOPERATOR elaborations elaborations.soar 62
+62	60	OPERATOR retrieve retrieve.soar 63
+63	60	OPERATOR search search.soar 64
+64	9	HLOPERATOR load-property-linked-list load-property-linked-list.soar load-property-linked-list 54 65
+65	64	FOPERATOR elaborations elaborations.soar 66
+66	9	HLOPERATOR load-subject load-subject.soar load-subject 20 67
+67	66	FOPERATOR elaborations elaborations.soar 68
+68	66	OPERATOR retrieve retrieve.soar 69
+69	66	OPERATOR search search.soar 70
+70	9	OPERATOR load-symmetric-property load-symmetric-property.soar 71
+71	9	OPERATOR load-transitive-property load-transitive-property.soar 72
+72	9	HLOPERATOR symmetric symmetric.soar symmetric 215 73
+73	72	FOPERATOR elaborations elaborations.soar 74
+74	72	OPERATOR finished finished.soar 75
+75	72	OPERATOR initialize-pointer initialize-pointer.soar 76
+76	72	HLOPERATOR iterate-symmetric-property-linked-list iterate-symmetric-property-linked-list.soar iterate-symmetric-property-linked-list 226 77
+77	76	FOPERATOR elaborations elaborations.soar 78
+78	76	OPERATOR create-symmetric-equivalent create-symmetric-equivalent.soar 79
+79	76	OPERATOR next next.soar 80
+80	76	HLOPERATOR search-for-symmetric-node search-for-symmetric-node.soar search-for-symmetric-node 235 81
+81	80	FOPERATOR elaborations elaborations.soar 82
+82	80	OPERATOR process process.soar 83
+83	80	OPERATOR search search.soar 84
+84	76	OPERATOR to-load to-load.soar 85
+85	72	OPERATOR load-pointer load-pointer.soar 86
+86	9	HLOPERATOR to-add to-add.soar to-add 181 87
+87	86	FOPERATOR elaborations elaborations.soar 88
+88	86	OPERATOR add add.soar 89
+89	9	HLOPERATOR to-load to-load.soar to-load 195 90
+90	89	FOPERATOR elaborations elaborations.soar 91
+91	89	OPERATOR load load.soar 92
+92	9	HLOPERATOR to-load-by-name to-load-by-name.soar to-load-by-name 208 93
+93	92	FOPERATOR elaborations elaborations.soar 94
+94	92	OPERATOR retrieve retrieve.soar 95
+95	92	OPERATOR search search.soar 96
+96	9	HLOPERATOR to-load-property-linked-list to-load-property-linked-list.soar to-load-property-linked-list 188 97
+97	96	FOPERATOR elaborations elaborations.soar 98
+98	96	OPERATOR load load.soar 99
+99	9	HLOPERATOR transitive transitive.soar transitive 244 100
+100	99	FOPERATOR elaborations elaborations.soar 101
+101	99	OPERATOR finished finished.soar 102
+102	99	OPERATOR init-pointers init-pointers.soar 103
+103	99	HLOPERATOR iterate-outer iterate-outer.soar iterate-outer 255 104
+104	103	FOPERATOR elaborations elaborations.soar 105
+105	103	HLOPERATOR iterate-inner iterate-inner.soar iterate-inner 264 106
+106	105	FOPERATOR elaborations elaborations.soar 107
+107	105	OPERATOR check-same check-same.soar 108
+108	105	OPERATOR create-transitive-axioms create-transitive-axioms.soar 109
+109	105	OPERATOR load-inner load-inner.soar 110
+110	105	OPERATOR load-outer load-outer.soar 111
+111	105	OPERATOR next-inner next-inner.soar 112
+112	105	HLOPERATOR search-for-transitive-node search-for-transitive-node.soar search-for-transitive-node 273 113
+113	112	FOPERATOR elaborations elaborations.soar 114
+114	112	OPERATOR init init.soar 115
+115	112	OPERATOR retrieve retrieve.soar 116
+116	112	OPERATOR search search.soar 117
+117	103	OPERATOR load-inner load-inner.soar 118
+118	103	OPERATOR next-outer next-outer.soar 119
+119	99	OPERATOR load-outer load-outer.soar 120
+END

@@ -1,0 +1,19 @@
+sp {transitive*propose*iterate-outer
+   (state <s> ^name transitive
+              ^outer-property-ptr {<ptr> <> nil})
+   (<ptr> ^propertyName <property-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name iterate-outer)
+}
+
+sp {transitive*apply*iterate-outer
+   (state <s> ^name transitive
+         ^operator <op>
+         ^superstate <ss>)
+   (<op> ^name iterate-outer)
+-->
+   (<ss> ^tested transitive)
+   (write |DEBUG> Finished with transitive check.| (crlf))
+}
+

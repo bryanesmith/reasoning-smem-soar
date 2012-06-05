@@ -1,0 +1,22 @@
+sp {perform-inference*propose*failed
+   (state <s> ^name perform-inference
+              # Add all the testable conditions here
+              ^tested directly-asserted
+              ^tested inverse-of
+              ^tested symmetric
+              ^tested transitive
+             -^axiom-to-add)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name failed)
+}
+
+sp {perform-inference*apply*failed
+   (state <s> ^operator <op>
+              ^superstate.inference <inference>)
+   (<op> ^name failed)
+-->
+   (<inference> ^result |uncertain|)
+    #(write |DEBUG> Inference failed to prove anything, so uncertain.| (crlf))
+}
+

@@ -1,0 +1,20 @@
+sp {load-next-inverse*propose*search
+   (state <s> ^name load-next-inverse
+              ^superstate.superstate.next-inverse-node <next-inverse-node>
+             -^smem.command.query)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^next-inverse-node <next-inverse-node>)
+}
+
+sp {load-next-inverse*apply*search
+   (state  <s> ^name load-next-inverse
+               ^operator <op>
+               ^smem.command <command>) 
+   (<op> ^name search
+         ^next-inverse-node <next-inverse-node>)
+-->
+   (<command> ^retrieve <next-inverse-node>)
+   #(write |DEBUG> Retrieving next inverse node: | <next-inverse-node> (crlf))
+}

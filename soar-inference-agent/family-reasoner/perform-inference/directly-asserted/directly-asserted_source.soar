@@ -1,0 +1,9 @@
+source elaborations.soar
+source failure.soar
+source initialize.soar
+source load-next.soar
+pushd load-next
+source load-next_source.soar
+popd
+source success.soar
+source update-next.soar

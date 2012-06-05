@@ -1,0 +1,56 @@
+source elaborations.soar
+source add-new-axiom.soar
+pushd add-new-axiom
+source add-new-axiom_source.soar
+popd
+source directly-asserted.soar
+pushd directly-asserted
+source directly-asserted_source.soar
+popd
+source failed.soar
+source inverse-of.soar
+pushd inverse-of
+source inverse-of_source.soar
+popd
+source load-object.soar
+pushd load-object
+source load-object_source.soar
+popd
+source load-predicate.soar
+pushd load-predicate
+source load-predicate_source.soar
+popd
+source load-property-linked-list.soar
+pushd load-property-linked-list
+source load-property-linked-list_source.soar
+popd
+source load-subject.soar
+pushd load-subject
+source load-subject_source.soar
+popd
+source load-symmetric-property.soar
+source load-transitive-property.soar
+source symmetric.soar
+pushd symmetric
+source symmetric_source.soar
+popd
+source to-add.soar
+pushd to-add
+source to-add_source.soar
+popd
+source to-load.soar
+pushd to-load
+source to-load_source.soar
+popd
+source to-load-by-name.soar
+pushd to-load-by-name
+source to-load-by-name_source.soar
+popd
+source to-load-property-linked-list.soar
+pushd to-load-property-linked-list
+source to-load-property-linked-list_source.soar
+popd
+source transitive.soar
+pushd transitive
+source transitive_source.soar
+popd

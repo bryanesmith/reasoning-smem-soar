@@ -1,0 +1,13 @@
+sp {iterate-inverse-predicate-linked-list*propose*check-next-inverse
+   (state <s> ^name iterate-inverse-predicate-linked-list
+              ^superstate.next-inverse-node {<next-node> <> nil})
+   # If loaded... leave substate when next-node <- next-node.next
+   (<next-node> ^object <object>
+                ^subject <subject>)
+   (<object> ^name <object-name>)
+   (<subject> ^name <subject-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name check-next-inverse)
+   #(write |DEBUG> Need to check inverse for | <subject-name> | -> | <object-name> (crlf))
+}

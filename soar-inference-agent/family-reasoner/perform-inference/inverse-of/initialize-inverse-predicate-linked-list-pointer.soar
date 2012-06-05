@@ -1,0 +1,19 @@
+sp {inverse-of*propose*initialize-inverse-predicate-linked-list-pointer
+   (state <s> ^name inverse-of
+              ^inverse-predicate-linked-list <ipll>
+             -^next-inverse-node)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name initialize-inverse-predicate-linked-list-pointer
+         ^inverse-predicate-linked-list <ipll>)
+}
+
+sp {inverse-of*apply*initialize-inverse-predicate-linked-list-pointer
+   (state <s> ^operator <op>)
+   (<op> ^name initialize-inverse-predicate-linked-list-pointer
+         ^inverse-predicate-linked-list.next <next>)
+-->
+   (<s> ^next-inverse-node <next>)
+   
+   #(write |DEBUG> Initialized inverse linked list pointer: | <next> (crlf))
+}

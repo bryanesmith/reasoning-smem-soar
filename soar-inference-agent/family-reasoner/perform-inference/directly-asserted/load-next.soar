@@ -1,0 +1,20 @@
+sp {directly-asserted*propose*load-next
+   (state <s> ^name directly-asserted
+             -^to-load
+              ^next-node {<next-node> <> nil})
+   (<next-node> -^object)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-next
+         ^next-node <next-node>)
+}
+
+sp {directly-asserted*apply*load-next 
+   (state <s> ^name directly-asserted 
+         ^operator <op>)
+   (<op> ^name load-next 
+         ^next-node <next-node>)
+-->
+   (<s> ^to-load <next-node>)
+    #(write |DEBUG> Adding job to load the next property node: | <next-node> (crlf))
+}

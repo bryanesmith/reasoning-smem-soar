@@ -1,0 +1,27 @@
+sp {family-reasoner*propose*load-query
+   (state <s> ^name family-reasoner
+              ^inference <inference>)
+   (<inference> ^query <query>)
+   (<query> -^subject
+            -^object
+            -^predicate)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-query)
+}
+
+
+sp {family-reasoner*apply*load-query
+   (state <s> ^name family-reasoner
+              ^next-query.query <next-query>
+              ^operator.name load-query
+              ^inference <inference>)
+   (<inference> ^query <query>)
+   (<next-query> ^subject <subject>
+                 ^object <object>
+                 ^predicate <predicate>)
+-->
+   (<query> ^subject <subject>
+            ^object <object>
+            ^predicate <predicate>)
+}

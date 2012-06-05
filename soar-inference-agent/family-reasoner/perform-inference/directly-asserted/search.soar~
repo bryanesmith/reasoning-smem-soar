@@ -1,0 +1,18 @@
+sp {directly-asserted*propose*search
+   (state <s> ^name directly-asserted
+             -^smem.command.query)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search)
+}
+
+sp {directly-asserted*apply*search
+   (state <s> ^name directly-asserted
+              ^operator.name search
+              ^smem.command <command>)
+-->
+   (<command> ^query <query>)
+   (<query> ^name <object>)
+   
+   (write |DEBUG> Searching for object: | <object> (crlf))
+}

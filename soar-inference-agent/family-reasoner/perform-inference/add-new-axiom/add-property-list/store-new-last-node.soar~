@@ -1,0 +1,21 @@
+sp {add-property-list*propose*store-new-last-node
+   (state <s> ^name add-property-list
+             -^stored new
+              ^new-last-node)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name store-new-last-node)
+}
+
+sp {add-property-list*apply*store-new-last-node
+   (state <s> ^name add-property-list
+              ^superstate.superstate <sss>
+              ^new-last-node <new-last-node>
+              ^operator <op>)
+   (<op> ^name store-new-last-node)
+-->
+   (<sss> ^to-add <new-last-node>)
+   (<s> ^stored new)
+   
+   (write |DEBUG> Added new last node as job to store: | <new-last-node> (crlf))
+}

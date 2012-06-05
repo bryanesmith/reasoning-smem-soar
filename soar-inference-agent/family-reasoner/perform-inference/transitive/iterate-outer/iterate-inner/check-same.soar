@@ -1,0 +1,47 @@
+sp {iterate-inner*propose*check-same*different
+   (state <s> ^name iterate-inner
+             -^checked-same
+              ^superstate.superstate <sss>)
+   (<sss> ^outer-property-ptr <outer-ptr>
+          ^inner-property-ptr {<inner-ptr> <> <outer-ptr>})
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name check-same
+         ^status different)
+}
+
+sp {iterate-inner*propose*check-same*same
+   (state <s> ^name iterate-inner
+              -^checked-same 
+              ^superstate.superstate <sss>)
+   (<sss> ^outer-property-ptr <outer-ptr>
+          ^inner-property-ptr <outer-ptr>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name check-same
+         ^status same)
+}
+
+sp {iterate-inner*apply*check-same*set-flag
+   (state <s> ^name iterate-inner
+              ^operator <op>)
+   (<op> ^name check-same)
+-->
+   (<s> ^checked-same true)
+}
+
+sp {iterate-inner*apply*check-same*skip
+   (state <s> ^name iterate-inner
+              ^operator <op>
+              ^superstate.superstate <sss>)
+   (<op> ^name check-same
+         ^status same)
+   (<sss> ^inner-property-ptr <prev>)
+   (<prev> ^next <next>)
+-->
+   (<sss> ^inner-property-ptr <prev> -)
+   (<sss> ^inner-property-ptr <next>)
+   #(write |DEBUG> Outer and inner pointer to same node, so skipping. Updated property pointer for inner loop in tranitive check.| (crlf))
+}
+
+

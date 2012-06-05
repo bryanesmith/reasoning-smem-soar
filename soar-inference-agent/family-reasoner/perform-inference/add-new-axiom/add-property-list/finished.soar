@@ -1,0 +1,18 @@
+sp {add-property-list*propose*finished
+   (state <s> ^name add-property-list
+              ^stored new
+              ^stored prev
+             -^superstate.added property-list)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished)
+}
+
+sp {add-property-list*apply*finished 
+   (state <s> ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name finished)
+-->
+   (<ss> ^added property-list)  
+   #(write |DEBUG> Finished adding axiom to property-list.| (crlf)) 
+}

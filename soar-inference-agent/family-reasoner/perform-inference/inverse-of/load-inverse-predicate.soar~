@@ -1,0 +1,21 @@
+sp {inverse-of*propose*load-inverse-predicate
+   (state <s> ^name inverse-of
+             -^to-load
+              ^inverse-predicate {<inverse-predicate> <> nil})
+   # Need to load from SMem
+   (<inverse-predicate> -^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-inverse-predicate
+         ^inverse-predicate <inverse-predicate>)
+}
+
+sp {inverse-of*apply*load-inverse-predicate
+   (state <s> ^name inverse-of
+              ^operator <op>)
+   (<op> ^name load-inverse-predicate
+         ^inverse-predicate <inverse-predicate>)
+-->
+   (<s> ^to-load <inverse-predicate>)
+   (write |DEBUG> Added job to load inverse predicate: | <inverse-predicate> (crlf))
+}

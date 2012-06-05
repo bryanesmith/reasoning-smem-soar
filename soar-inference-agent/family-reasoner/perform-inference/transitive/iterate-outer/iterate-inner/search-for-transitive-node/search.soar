@@ -1,0 +1,36 @@
+sp {search-for-transitive-node*propose*search
+   (state <s> ^name search-for-transitive-node
+              ^superstate <ss>
+             -^smem.command.query
+              ^transitive-axiom <axiom>)
+   (<axiom> ^propertyName <property-name>
+            ^subject <subject>
+            ^object <object>
+            ^label <label>)
+   (<ss> -^searched <label>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^propertyName <property-name>
+         ^subject <subject>
+         ^object <object>
+         ^label <label>)
+}
+
+sp {search-for-transitive-node*apply*search
+   (state <s> ^name search-for-transitive-node
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name search
+         ^propertyName <property-name>
+         ^subject <subject>
+         ^object <object>
+         ^label <label>)
+-->
+   (<command> ^query <query>) 
+   (<query> ^subject <subject>
+            ^object <object>
+            ^propertyName <property-name>)
+   #(write |DEBUG> Checking if transitive property axiom | <label> | exists: | <property-name> |(| <subject> |,| <object> |)| (crlf))
+}
+

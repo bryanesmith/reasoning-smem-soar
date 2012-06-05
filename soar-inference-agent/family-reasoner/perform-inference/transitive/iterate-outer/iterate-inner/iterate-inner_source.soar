@@ -1,0 +1,10 @@
+source elaborations.soar
+source check-same.soar
+source create-transitive-axioms.soar
+source load-inner.soar
+source load-outer.soar
+source next-inner.soar
+source search-for-transitive-node.soar
+pushd search-for-transitive-node
+source search-for-transitive-node_source.soar
+popd

@@ -1,0 +1,4 @@
+source elaborations.soar
+source init.soar
+source retrieve.soar
+source search.soar

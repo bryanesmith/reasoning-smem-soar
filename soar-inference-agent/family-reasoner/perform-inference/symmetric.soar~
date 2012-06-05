@@ -1,0 +1,60 @@
+sp {perform-inference*propose*symmetric
+   (state <s> ^name perform-inference
+              # Don't run until loaded
+              ^subject <subject>
+              ^object <object>
+              ^predicate <predicate>
+              ^property-linked-list <property-linked-list>
+              ^symmetric-property <symmetric-property>
+                    # Skip if already checked. (This will be removed
+                    # during forward-chaining when new knowledge is
+                    # added.)
+             -^tested symmetric
+             # Terminate if fails (error message in result)
+             -^superstate.inference.result
+             # Add new axioms first
+             -^axiom-to-add
+             # Make sure nothing to store
+             -^to-add
+# Make sure tested if done first
+              ^tested directly-asserted)
+   (<predicate> ^type <symmetric-property>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name symmetric)
+    #(write |DEBUG> Inference check: symmetric| (crlf))
+}
+
+sp {perform-inference*propose*no-symmetric
+   (state <s> ^name perform-inference
+              # Don't run until loaded
+              ^subject <subject>
+              ^object <object>
+              ^predicate <predicate>
+              ^property-linked-list <property-linked-list>
+              ^symmetric-property <symmetric-property>
+                    # Skip if already checked. (This will be removed
+                    # during forward-chaining when new knowledge is
+                    # added.)
+             -^tested symmetric
+             # Terminate if fails (error message in result)
+             -^superstate.inference.result
+             # Add new axioms first
+             #-^axiom-to-add
+             # Make sure nothing to store
+             -^to-add)
+   (<predicate> -^type <symmetric-property>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name no-symmetric)
+}
+
+sp {perform-inference*apply*no-symmetric
+   (state <s> ^name perform-inference
+              ^operator <op>)
+   (<op> ^name no-symmetric)
+-->
+   (<s> ^tested symmetric)
+    #(write |DEBUG> Inference check: symmetric, but predicate not symmetric. Skipping.| (crlf))
+}
+

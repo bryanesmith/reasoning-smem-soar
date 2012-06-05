@@ -1,0 +1,8 @@
+sp {initialize-inverse-predicate-linked-list-pointer*propose*load-next
+   (state <s> ^name initialize-inverse-predicate-linked-list-pointer
+              ^next-node {<next-node> <> nil})
+   (<next-node> -^object)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-next)
+}

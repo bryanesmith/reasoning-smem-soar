@@ -1,0 +1,7 @@
+source elaborations.soar
+source iterate-inner.soar
+pushd iterate-inner
+source iterate-inner_source.soar
+popd
+source load-inner.soar
+source next-outer.soar

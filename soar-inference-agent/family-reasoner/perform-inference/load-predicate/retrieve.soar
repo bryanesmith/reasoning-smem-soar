@@ -1,0 +1,61 @@
+sp {load-predicate*propose*retrieve*success
+   (state <s> ^name load-predicate
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+}
+
+sp {load-predicate*apply*retrieve*success
+   (state <s> ^name load-predicate
+              ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+-->
+   (<ss> ^predicate <retrieved>)
+   #(write |DEBUG> Retrieved predicate: | <retrieved> (crlf))
+}
+
+sp {load-predicate*propose*retrieve*failure
+   (state <s> ^name load-predicate
+              ^smem.result.failure)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve-failure)
+}
+
+sp {load-predicate*apply*retrieve*failure
+   (state <s> ^name load-predicate
+              ^operator <op>
+              ^superstate.superstate.inference <inference>)
+   (<op> ^name retrieve-failure)
+-->
+   (<inference> ^result |Failure: Cannot find preidcate|)
+   #(write |DEBUG> Failed to retrieve predicate| (crlf))
+}
+
+# Clean up
+sp {load-predicate*apply*retrieve*clean-up*success
+   (state <s> ^name load-predicate
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name retrieve-success)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   #(write |DEBUG> Cleaned up query for predicate (success) | (crlf))
+}
+
+sp {load-predicate*apply*retrieve*clean-up*failure
+   (state <s> ^name load-predicate
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name retrieve-failure)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   #(write |DEBUG> Cleaned up query for predicate (failure) | (crlf))
+}
+

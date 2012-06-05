@@ -1,0 +1,22 @@
+sp {transitive*propose*init-pointers
+   (state <s> ^name transitive
+             -^outer-property-ptr
+             -^inner-property-ptr
+              ^superstate.property-linked-list <list>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name init-pointers
+         ^superstate.property-linked-list <list>)
+}
+
+sp {transitive*apply*init-pointers
+   (state <s> ^operator <op>)
+   (<op> ^name init-pointers
+         ^superstate.property-linked-list <list>)
+   (<list> ^next <first-node>)
+-->
+   (<s> ^outer-property-ptr <first-node>
+        ^inner-property-ptr <first-node>)
+   (write |DEBUG> Ini| (crlf))
+}
+

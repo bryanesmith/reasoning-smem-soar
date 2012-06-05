@@ -1,0 +1,23 @@
+sp {iterate-outer*propose*next-outer
+   (state <s> ^name iterate-outer
+              ^superstate <ss>)
+   (<ss> ^outer-property-ptr <outer-ptr>
+         ^inner-property-ptr nil)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name next-outer)
+}
+
+sp {iterate-outer*apply*next-outer
+   (state <s> ^name iterate-outer
+              ^superstate <ss>
+              ^operator <op>)
+   (<op> ^name next-outer)
+   (<ss> ^outer-property-ptr <prev>)
+   (<prev> ^next <next>)
+-->
+   (<ss> ^outer-property-ptr <prev> -)
+   (<ss> ^outer-property-ptr <next>)
+   (write |DEBUG> Updated property pointer for outer loop in tranitive check.| (crlf))
+}
+

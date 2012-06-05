@@ -1,0 +1,16 @@
+sp {transitive*propose*finished
+   (state <s> ^name transitive
+              ^outer-property-ptr nil)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished)
+}
+
+sp {transitive*apply*finished
+   (state <s> ^name transitive
+              ^operator.name finished
+              ^superstate <ss>)
+-->
+   (<ss> ^tested transitive)
+   #(write |DEBUG> Finished with transitive check.| (crlf))
+}

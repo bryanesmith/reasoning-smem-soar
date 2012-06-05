@@ -1,0 +1,27 @@
+sp {perform-inference*propose*load-property-linked-list
+   (state <s> ^name perform-inference
+              # Terminate if success
+             -^property-linked-list
+              # Make sure nothing to store
+             -^to-store
+              # Make sure nothing to load
+             -^to-load-property-linked-list
+              # Terminate if fails (error message in result)
+             -^superstate.inference.result
+              ^superstate.inference.query <query>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-property-linked-list
+         ^query <query>)
+}
+
+sp {perform-inference*apply*load-property-linked-list
+   (state <s> ^name perform-inference
+              ^operator <op>)
+   (<op> ^name load-property-linked-list
+         ^query <query>)
+   (<query> ^predicate-name <predicate-name>)
+-->
+   (<s> ^to-load-property-linked-list <job>)
+   (<job> ^property-name
+}

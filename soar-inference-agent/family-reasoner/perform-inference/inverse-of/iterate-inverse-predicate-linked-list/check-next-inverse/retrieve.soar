@@ -1,0 +1,27 @@
+sp {check-next-inverse*propose*retrieve*success
+   (state <s> ^name check-next-inverse
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve)
+   #(write |DEBUG> Successfully retrieved inverse predicate's object.| (crlf))
+}
+
+sp {check-next-inverse*apply*retrieve*success*clean-up
+   (state <s> ^name check-next-inverse
+              ^operator.name retrieve
+              ^smem.command <command>)
+   (<command> ^retrieve <retrieve>)
+-->
+   (<command> ^retrieve <retrieve> -)
+   #(write |DEBUG> Cleaning up after inverse predicate's object's retrieval.| (crlf))
+}
+
+
+sp {check-next-inverse*propose*retrieve*failure
+   (state <s> ^name check-next-inverse
+              ^smem.result.failure)
+-->
+   (write |Assertion failed: subject (from inverse predicate) was found but not loaded? Programmer error?| (crlf))
+   (halt)
+}

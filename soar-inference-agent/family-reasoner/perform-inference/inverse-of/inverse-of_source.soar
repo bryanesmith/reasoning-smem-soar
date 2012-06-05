@@ -1,0 +1,16 @@
+source elaborations.soar
+source finished.soar
+source initialize-inverse-predicate.soar
+source initialize-inverse-predicate-linked-list-pointer.soar
+source iterate-inverse-predicate-linked-list.soar
+pushd iterate-inverse-predicate-linked-list
+source iterate-inverse-predicate-linked-list_source.soar
+popd
+source load-inverse-predicate.soar
+pushd load-inverse-predicate
+source load-inverse-predicate_source.soar
+popd
+source load-inverse-predicate-linked-list.soar
+pushd load-inverse-predicate-linked-list
+source load-inverse-predicate-linked-list_source.soar
+popd

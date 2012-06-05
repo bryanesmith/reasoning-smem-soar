@@ -1,0 +1,6 @@
+source elaborations.soar
+source create-new-last-node.soar
+source find-prev-last-node.soar
+source finished.soar
+source store-new-last-node.soar
+source update-and-store-prev-last-node.soar

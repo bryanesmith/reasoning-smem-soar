@@ -1,0 +1,9 @@
+sp {symmetric*propose*iterate-symmetric-property-linked-list
+   (state <s> ^name symmetric
+              ^next-property {<node> <> nil})
+   # Make sure it is loaded first
+   (<node> ^propertyName <property-name>) 
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name iterate-symmetric-property-linked-list)
+}

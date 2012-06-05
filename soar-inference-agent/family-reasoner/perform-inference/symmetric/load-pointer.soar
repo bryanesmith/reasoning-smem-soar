@@ -1,0 +1,20 @@
+sp {symmetric*propose*load-pointer
+   (state <s> ^name symmetric
+             -^to-load
+              ^next-property {<node> <> nil})
+   (<node> -^propertyName)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-pointer
+         ^next-property <node>)
+}
+
+sp {symmetric*apply*load-pointer 
+   (state <s> ^name symmetric 
+         ^operator <op>)
+   (<op> ^name load-pointer 
+         ^next-property <node>) 
+-->
+   (<s> ^to-load <node>)
+   #(write |DEBUG> Added job to load node| (crlf))
+}

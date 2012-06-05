@@ -1,0 +1,158 @@
+smem --set learning on
+
+# Found ontology with namespace: http://www.bryanesmith.com/ontologies/
+
+smem --add {
+     # |Adding item #1 of 23: <r18> FunctionalProperty|
+     (<r18> ^name |FunctionalProperty|)
+
+     # |Adding item #2 of 23: <r21> Ontology|
+     (<r21> ^name |Ontology|)
+
+     # |Adding item #3 of 23: <r7> Amy|
+     (<r7> ^name |Amy|
+           ^type <r17>)
+
+     # |Adding item #4 of 23: <r11> Joe|
+     (<r11> ^name |Joe|
+            ^hasFather <r10>
+            ^hasSibling <r4>
+            ^hasMother <r3>
+            ^hasSibling <r7>
+            ^type <r17>)
+
+     # |Adding item #5 of 23: <r19> Class|
+     (<r19> ^name |Class|)
+
+     # |Adding item #6 of 23: <r14> family-example.owl|
+     (<r14> ^name |family-example.owl|
+            ^type <r21>)
+
+     # |Adding item #7 of 23: <r15> ObjectProperty|
+     (<r15> ^name |ObjectProperty|)
+
+     # |Adding item #8 of 23: <r1> isFatherOf|
+     (<r1> ^name |isFatherOf|
+           ^inverseOf <r5>
+           ^domain <r6>
+           ^range <r6>
+           ^type <r18>
+           ^type <r15>)
+
+     # |Adding item #9 of 23: <r10> Steve|
+     (<r10> ^name |Steve|
+            ^type <r17>)
+
+     # |Adding item #10 of 23: <r12> isMotherOf|
+     (<r12> ^name |isMotherOf|
+            ^inverseOf <r9>
+            ^domain <r6>
+            ^range <r6>
+            ^type <r18>
+            ^type <r15>)
+
+     # |Adding item #11 of 23: <r16> SymmetricProperty|
+     (<r16> ^name |SymmetricProperty|)
+
+     # |Adding item #12 of 23: <r9> hasMother|
+     (<r9> ^name |hasMother|
+           ^domain <r6>
+           ^range <r6>
+           ^type <r20>
+           ^type <r15>)
+
+     # |Adding item #13 of 23: <r22> nil|
+     (<r22> ^name |nil|)
+
+     # |Adding item #14 of 23: <r17> Thing|
+     (<r17> ^name |Thing|)
+
+     # |Adding item #15 of 23: <r4> Matthew|
+     (<r4> ^name |Matthew|
+           ^type <r17>)
+
+     # |Adding item #16 of 23: <r2> anonymous|
+     (<r2> ^rest <r22>
+           ^first <r5>)
+
+     # |Adding item #17 of 23: <r23> TransitiveProperty|
+     (<r23> ^name |TransitiveProperty|)
+
+     # |Adding item #18 of 23: <r20> InverseFunctionalProperty|
+     (<r20> ^name |InverseFunctionalProperty|)
+
+     # |Adding item #19 of 23: <r6> Person|
+     (<r6> ^name |Person|
+           ^type <r19>)
+
+     # |Adding item #20 of 23: <r8> anonymous|
+     (<r8> ^rest <r2>
+           ^first <r13>)
+
+     # |Adding item #21 of 23: <r3> Heather|
+     (<r3> ^name |Heather|
+           ^type <r17>)
+
+     # |Adding item #22 of 23: <r5> hasFather|
+     (<r5> ^name |hasFather|
+           ^propertyChainAxiom <r8>
+           ^range <r6>
+           ^domain <r6>
+           ^type <r20>
+           ^type <r15>)
+
+     # |Adding item #23 of 23: <r13> hasSibling|
+     (<r13> ^name |hasSibling|
+            ^range <r6>
+            ^domain <r6>
+            ^type <r23>
+            ^type <r16>
+            ^type <r15>)
+
+     (<r24> ^propertyName |isMotherOf|
+            ^type |ObjectProperty|
+            ^type |FunctionalProperty|
+            ^next nil)
+
+     (<r25> ^propertyName |hasFather|
+            ^type |InverseFunctionalProperty|
+            ^type |ObjectProperty|
+            ^next <r26>)
+
+     (<r26> ^propertyName |hasFather| 
+            ^subject <r11>
+            ^object <r10>
+            ^next nil)
+
+     (<r27> ^propertyName |hasMother|
+            ^type |InverseFunctionalProperty|
+            ^type |ObjectProperty|
+            ^next <r28>)
+
+     (<r28> ^propertyName |hasMother| 
+            ^subject <r11>
+            ^object <r3> 
+            ^next nil) 
+
+     (<r29> ^propertyName |isFatherOf|
+            ^type |ObjectProperty|
+            ^type |FunctionalProperty|
+            ^next nil)
+
+     (<r30> ^propertyName |hasSibling|
+            ^type |TransitiveProperty|
+            ^type |ObjectProperty|
+            ^type |SymmetricProperty|
+            ^next <r31>)
+
+     (<r31> ^propertyName |hasSibling|
+            ^subject <r11>
+            ^object <r4> 
+            ^next <r32>) 
+ 
+     (<r32> ^propertyName |hasSibling|
+            ^subject <r11>
+            ^object <r7> 
+            ^next nil) 
+
+}

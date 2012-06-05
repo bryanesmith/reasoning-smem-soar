@@ -1,0 +1,28 @@
+sp {inverse-of*propose*initialize-inverse-predicate
+   (state <s> ^name inverse-of
+             -^inverse-predicate 
+              ^superstate <ss>)
+   (<ss> ^predicate <predicate>)
+   (<predicate> ^inverseOf <inverse-predicate>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name initialize-inverse-predicate
+         ^inverse-predicate <inverse-predicate>
+         ^predicate <predicate>)
+}
+
+sp {inverse-of*apply*initialize-inverse-predicate
+   (state <s> ^name inverse-of
+         ^operator <op>)
+   (<op> ^name initialize-inverse-predicate 
+         ^inverse-predicate <inverse-predicate>
+         ^predicate <predicate>)
+  
+-->
+   (<s> ^inverse-predicate <inverse-predicate>
+        ^predicate <predicate>)
+   (write |DEBUG> Found inverse predicate | <inverse-predicate> | for | <predicate> (crlf))
+}
+
+
+

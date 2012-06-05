@@ -1,0 +1,25 @@
+sp {to-load-by-name*propose*search
+   (state <s> ^name to-load-by-name
+              ^superstate.to-load-by-name <desc>
+             -^smem.command.query)
+   (<desc> ^name <node-name>
+           ^name-for-augmentation <aug-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^node-name <node-name>
+         ^name-for-augmentation <aug-name>)
+}
+
+sp {to-load-by-name*apply*search
+   (state <s> ^name to-load-by-name
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name search 
+         ^node-name <node-name>)
+-->
+   (<command> ^query <query>)
+   (<query> ^name <node-name>)
+   #(write |DEBUG> Querying for node by name: | <node-name> (crlf))
+}
+

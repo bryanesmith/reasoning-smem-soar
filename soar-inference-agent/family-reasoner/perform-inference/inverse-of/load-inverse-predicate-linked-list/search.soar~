@@ -1,0 +1,23 @@
+sp {load-inverse-predicate-linked-list*propose*search 
+   (state <s> ^name load-inverse-predicate-linked-list 
+              ^superstate.inverse-predicate <inverse-predicate> 
+             -^smem.command.query) 
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^inverse-predicate <inverse-predicate>)
+}
+
+sp {load-inverse-predicate-linked-list*apply*search 
+   (state <s> ^name load-inverse-predicate-linked-list 
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name search
+         ^inverse-predicate <inverse-predicate>) 
+   (<inverse-predicate> ^name <inverse-predicate-name>)
+-->
+   (<command> ^query <query>)
+   (<query> ^propertyName <inverse-predicate-name>
+            ^type <wildcard>)
+   (write |DEBUG> Searching for inverse predicate linked-list: | <inverse-predicate-name> (crlf))
+}

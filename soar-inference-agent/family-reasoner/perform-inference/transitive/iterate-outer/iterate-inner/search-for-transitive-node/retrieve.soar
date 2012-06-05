@@ -1,0 +1,64 @@
+sp {search-for-transitive-node*propose*retrieve*found
+   (state <s> ^name search-for-transitive-node
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve
+         ^status found)
+}
+
+sp {search-for-transitive-node*propose*retrieve*not-found
+   (state <s> ^name search-for-transitive-node
+              ^smem.result.failure)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve
+         ^status not-found)
+}
+
+sp {search-for-transitive-node*apply*retrieve*clean-up
+   (state <s>  ^name search-for-transitive-node
+               ^operator <op>
+               ^smem.command <command>)
+   (<op> ^name retrieve
+         ^status <status>)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   #(write |DEBUG> Cleaned up transitive query. (status: | <status> |)| (crlf))
+}
+
+sp {search-for-transitive-node*apply*retrieve*set-flag
+   (state <s> ^name search-for-transitive-node
+              ^operator <op>
+              ^superstate <ss>
+              ^transitive-axiom <axiom>)
+   (<ss> -^searched <label>)
+   (<op> ^name retrieve)
+   (<axiom> ^label <label>)
+-->
+   (<ss> ^searched <label>)
+   #(write |DEBUG> Set flag | <label> | in superstate to say that the search has been performed| (crlf))
+}
+
+sp {search-for-transitive-node*apply*retrieve*not-found
+   (state <s> ^name search-for-transitive-node
+              ^superstate.superstate.superstate.superstate <sssss>
+              ^transitive-axiom <axiom>
+              ^operator <op>)
+   (<axiom> ^propertyName <property-name>
+            ^subject <subject>
+            ^object <object>)
+   (<sssss> ^predicate <predicate>)
+   (<op> ^name retrieve
+         ^status not-found)
+-->
+   (<sssss> ^axiom-to-add <to-add>)
+   (<to-add> ^object <object> 
+             ^subject <subject>
+             ^predicate <predicate>)
+#   (write |DEBUG> Found new transitive property, | <property-name> |(| <subject> |,| <object> |). Submitting as job.| (crlf))
+}
+
+
+

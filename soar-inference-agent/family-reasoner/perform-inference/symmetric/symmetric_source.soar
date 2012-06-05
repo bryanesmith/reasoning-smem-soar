@@ -1,0 +1,8 @@
+source elaborations.soar
+source finished.soar
+source initialize-pointer.soar
+source iterate-symmetric-property-linked-list.soar
+pushd iterate-symmetric-property-linked-list
+source iterate-symmetric-property-linked-list_source.soar
+popd
+source load-pointer.soar

@@ -1,0 +1,13 @@
+sp {perform-inference*propose*load-object
+   (state <s> ^name perform-inference
+              # Terminate if success
+             -^object
+             # Make sure nothing to store
+             -^to-add
+-^axiom-to-add
+              # Terminate if fails (error message in result)
+             -^superstate.inference.result)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-object)
+}

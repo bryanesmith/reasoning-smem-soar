@@ -1,0 +1,61 @@
+sp {perform-inference*propose*transitive
+   (state <s> ^name perform-inference
+              # Don't run until loaded
+              ^subject <subject>
+              ^object <object>
+              ^predicate <predicate>
+              ^property-linked-list <property-linked-list>
+              ^transitive-property <transitive-property>
+                    # Skip if already checked. (This will be removed
+                    # during forward-chaining when new knowledge is
+                    # added.)
+             -^tested transitive
+             # Terminate if fails (error message in result)
+             -^superstate.inference.result
+             # Add new axioms first
+             -^axiom-to-add
+             # Make sure nothing to store
+             -^to-add
+             # Make sure tested if done first
+              ^tested directly-asserted)
+   (<predicate> ^type <transitive-property>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name transitive)
+    #(write |DEBUG> Inference check: transitive| (crlf))
+}
+
+sp {perform-inference*propose*no-transitive
+   (state <s> ^name perform-inference
+              # Don't run until loaded
+              ^subject <subject>
+              ^object <object>
+              ^predicate <predicate>
+              ^property-linked-list <property-linked-list>
+              ^transitive-property <transitive-property>
+                    # Skip if already checked. (This will be removed
+                    # during forward-chaining when new knowledge is
+                    # added.)
+             -^tested transitive
+             # Terminate if fails (error message in result)
+             -^superstate.inference.result
+             # Add new axioms first
+             -^axiom-to-add
+             # Make sure nothing to store
+             -^to-add)
+   (<predicate> -^type <transitive-property>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name no-transitive)
+}
+
+sp {perform-inference*apply*transitive
+   (state <s> ^name perform-inference
+              ^operator <op>)
+   (<op> ^name no-transitive)
+-->
+   (<s> ^tested transitive)
+    #(write |DEBUG> Inference check: transitive, but predicate not transitive. Skipping.| (crlf))
+}
+
+

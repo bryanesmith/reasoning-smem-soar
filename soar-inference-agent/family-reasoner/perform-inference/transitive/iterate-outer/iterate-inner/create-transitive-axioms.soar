@@ -1,0 +1,140 @@
+# ------------------------------------------------------------------------
+# PROPOSE: Axiom 1
+# ------------------------------------------------------------------------
+
+# Does outer object equal inner subject?
+sp {iterate-inner*propose*create-transitive-axioms*axiom-1*valid
+   (state <s> ^name iterate-inner
+              ^checked-same true
+             -^checked axiom-1
+              ^superstate.superstate <sss>)
+   (<sss> ^outer-property-ptr <outer-ptr> 
+          ^inner-property-ptr {<inner-ptr> <> <outer-ptr>})
+   (<outer-ptr> ^propertyName <property-name>
+                ^subject <outer-subject>
+                ^object <outer-object>)
+   (<inner-ptr> ^subject <outer-object> 
+                ^object <inner-object>)
+   (<outer-subject> ^name)
+   (<outer-object> ^name)
+   (<inner-object> ^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name create-transitive-axiom-1
+         ^status valid
+         ^propertyName <property-name> 
+         ^label axiom-1
+         ^subject <outer-subject>
+         ^object <inner-object>)
+}
+
+# Does outer object NOT equal inner subject?
+sp {iterate-inner*propose*create-transitive-axioms*axiom-1*not-valid
+   (state <s> ^name iterate-inner
+              ^checked-same true 
+             -^checked axiom-1
+              ^superstate.superstate <sss>)
+   (<sss> ^outer-property-ptr <outer-ptr> 
+          ^inner-property-ptr {<inner-ptr> <> <outer-ptr>})
+   (<outer-ptr> ^propertyName <property-name>
+                ^subject <outer-subject>
+                ^object <outer-object>)
+   (<inner-ptr> ^subject {<inner-subject> <> <outer-object>}
+                ^object <inner-object>)
+   (<outer-subject> ^name) 
+   (<outer-object> ^name)
+   (<inner-object> ^name) 
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name create-transitive-axiom-1
+         ^status invalid)
+}
+
+# ------------------------------------------------------------------------
+# PROPOSE: Axiom 2
+# ------------------------------------------------------------------------
+
+# Does inner object equal outer subject?
+sp {iterate-inner*propose*create-transitive-axioms*axiom-2*valid
+   (state <s> ^name iterate-inner
+              ^checked-same true 
+             -^checked axiom-2
+              ^superstate.superstate <sss>)
+   (<sss> ^outer-property-ptr <outer-ptr> 
+          ^inner-property-ptr {<inner-ptr> <> <outer-ptr>}) 
+   (<outer-ptr> ^propertyName <property-name>
+                ^subject <outer-subject>
+                ^object <outer-object>)
+   (<inner-ptr> ^subject <inner-subject> 
+                ^object <outer-subject>) 
+   (<outer-subject> ^name)  
+   (<outer-object> ^name)
+   (<inner-subject> ^name) 
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name create-transitive-axiom-2
+         ^status valid
+         ^propertyName <property-name> 
+         ^label axiom-2
+         ^subject <inner-subject>
+         ^object <outer-object>)
+}
+
+# Does inner object NOT equal outer subject?
+sp {iterate-inner*propose*create-transitive-axioms*axiom-2*not-valid
+   (state <s> ^name iterate-inner
+              ^checked-same true 
+             -^checked axiom-2
+              ^superstate.superstate <sss>)
+   (<sss> ^outer-property-ptr <outer-ptr> 
+          ^inner-property-ptr {<inner-ptr> <> <outer-ptr>}) 
+   (<outer-ptr> ^propertyName <property-name>
+                ^subject <outer-subject>
+                ^object <outer-object>)
+   (<inner-ptr> ^subject <inner-subject>
+                ^object {<inner-object> <> <outer-subject>})
+   (<outer-subject> ^name)  
+   (<outer-object> ^name)
+   (<inner-subject> ^name) 
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name create-transitive-axiom-2
+         ^status invalid)
+}
+
+# ------------------------------------------------------------------------
+# APPLY: Set flags
+# ------------------------------------------------------------------------
+sp {iterate-inner*apply*create-transitive-axioms*set-flag*axiom-1
+   (state <s> ^name iterate-inner 
+              ^operator.name create-transitive-axiom-1)
+-->
+   (<s> ^checked axiom-1)
+}
+
+sp {iterate-inner*apply*create-transitive-axioms*set-flag*axiom-2
+   (state <s> ^name iterate-inner 
+              ^operator.name create-transitive-axiom-2)
+-->
+   (<s> ^checked axiom-2)
+}
+
+# ------------------------------------------------------------------------
+# APPLY: Create transitive axioms
+# ------------------------------------------------------------------------
+# Can be axiom #1 or #2
+sp {iterate-inner*apply*create-transitive-axiom
+   (state <s> ^operator <op>)
+   (<op> ^status valid
+         ^propertyName <property-name> 
+         ^label <label>
+         ^subject <subject>
+         ^object <object>) 
+-->
+   (<s> ^transitive-axiom <axiom>)
+   (<axiom> ^propertyName <property-name>  
+         ^label <label>
+         ^subject <subject>
+         ^object <object>)
+   #(write |DEBUG> Added | <label> | as valid transitive axiom to check.| (crlf))
+} 

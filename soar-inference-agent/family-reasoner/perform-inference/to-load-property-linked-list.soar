@@ -1,0 +1,6 @@
+sp {perform-inference*propose*to-load-property-linked-list
+   (state <s> ^to-load-property-linked-list <desc>) 
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name to-load-property-linked-list) 
+}

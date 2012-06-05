@@ -1,0 +1,27 @@
+sp {add-property-list*propose*update-and-store-prev-last-node
+   (state <s> ^name add-property-list
+             -^stored prev
+              ^prev-last-node
+              ^new-last-node)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name update-and-store-prev-last-node)
+}
+
+sp {add-property-list*apply*update-and-store-prev-last-node
+   (state <s>  ^name add-property-list 
+               ^operator <op>
+               ^new-last-node <new-last-node>
+               ^prev-last-node <prev-last-node>
+               ^superstate.superstate <sss>)
+   (<op> ^name update-and-store-prev-last-node)
+-->
+   (<prev-last-node> ^next nil -)
+   (<prev-last-node> ^next <new-last-node>)
+   
+   (<sss> ^to-add <prev-last-node>) 
+   (<s> ^stored prev)
+   
+   #(write |DEBUG> Added prev last node as job to store: | <prev-last-node> (crlf))
+}
+

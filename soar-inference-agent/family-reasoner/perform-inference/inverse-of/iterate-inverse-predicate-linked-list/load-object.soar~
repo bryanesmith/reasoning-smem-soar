@@ -1,0 +1,22 @@
+sp {iterate-inverse-predicate-linked-list*propose*load-object
+   (state <s> ^name iterate-inverse-predicate-linked-list
+             -^to-load
+              ^superstate.next-inverse-node {<next-node> <> nil})
+   # If loaded... leave substate when next-node <- next-node.next
+(<next-node> ^object <object>)
+(<object> -^name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-object
+         ^to-load <object>)
+}
+
+sp {iterate-inverse-predicate-linked-list*apply*load-object
+   (state <s>  ^name iterate-inverse-predicate-linked-list
+         ^operator <op>)
+   (<op> ^name load-object 
+         ^to-load <object>)
+-->
+   (<s> ^to-load <object>)
+   #(write |DEBUG> Going to load object before testing inverse| (crlf)) 
+}

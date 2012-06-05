@@ -1,0 +1,18 @@
+sp {perform-inference*propose*load-symmetric-property
+   (state <s> ^name perform-inference
+             -^symmetric-property
+             -^to-load-by-name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-symmetric-property)
+}
+
+sp {perform-inference*apply*load-symmetric-property 
+   (state <s> ^name perform-inference
+              ^operator.name load-symmetric-property)
+-->
+   (<s> ^to-load-by-name <job>)
+   (<job> ^name-for-augmentation symmetric-property
+          ^name SymmetricProperty)
+    #(write |DEBUG> Added job to load SymmetricProperty.| (crlf))
+}

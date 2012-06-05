@@ -1,0 +1,33 @@
+sp {add-new-axiom*propose*add-axiom
+   (state <s> ^name add-new-axiom
+              ^superstate <ss>
+             -^added axiom)
+   (<ss> ^axiom-to-add <axiom>)
+   (<axiom> ^subject <subject>
+            ^object <object>
+            ^predicate <predicate>)
+   (<predicate> ^name <predicate-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name add-axiom
+         ^subject <subject>
+         ^object <object>
+         ^predicate-name <predicate-name>)
+}
+
+sp {add-new-axiom*apply*add-axiom 
+   (state <s> ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name add-axiom
+         ^subject <subject>
+         ^object <object>
+         ^predicate-name <predicate-name>)
+-->
+   (<s> ^added axiom)
+   (<ss> ^to-add <subject>)
+   (<subject> ^<predicate-name> <object>)
+   
+   (write |DEBUG> Added axiom as job to store.| (crlf))
+}
+
+

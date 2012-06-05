@@ -1,0 +1,29 @@
+sp {inverse-of*propose*load-inverse-predicate-linked-list
+   (state <s> ^name inverse-of
+              ^inverse-predicate <inverse-predicate>
+              # Terminate if success
+             -^inverse-predicate-linked-list
+              # Finish a job before trying again
+             -^to-load-property-linked-list
+              # Terminate if fails (error message in result)
+             -^superstate.superstate.inference.result)
+   # Make sure predicate is loaded first
+   (<inverse-predicate> ^name <inverse-predicate-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-inverse-predicate-linked-list
+         ^inverse-predicate-name <inverse-predicate-name>) 
+}
+
+sp {inverse-of*apply*load-inverse-predicate-linked-list
+   (state <s> ^name inverse-of
+              ^operator <op>)
+   (<op> ^name load-inverse-predicate-linked-list 
+         ^inverse-predicate-name <inverse-predicate-name>)
+-->
+   (<s> ^to-load-property-linked-list <job>)
+   (<job> ^name-for-augmentation inverse-predicate-linked-list 
+          ^property-name <inverse-predicate-name>)
+   (write |DEBUG> Adding job for inverse property linked list: | <inverse-predicate-name> (crlf))
+}
+

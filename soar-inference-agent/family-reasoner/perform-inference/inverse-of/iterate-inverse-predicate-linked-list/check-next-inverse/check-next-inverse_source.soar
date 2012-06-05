@@ -1,0 +1,6 @@
+source elaborations.soar
+source check-inverse.soar
+source next-inverse-node.soar
+source process-axiom-to-add.soar
+source retrieve.soar
+source search.soar

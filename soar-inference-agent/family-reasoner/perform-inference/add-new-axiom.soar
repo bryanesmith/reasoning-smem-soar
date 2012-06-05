@@ -1,0 +1,22 @@
+sp {perform-inference*propose*add-new-axiom
+   (state <s> ^name perform-inference
+              ^axiom-to-add <axiom>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name add-new-axiom
+         ^axiom-to-add <axiom>)
+}
+
+#sp {perform-inference*propose*add-new-axiom
+#   (state <s> ^name perform-inference
+#              ^axiom-to-add <axiom>
+#              ^tested inverse-of
+#              ^tested directly-asserted
+#              ^tested symmetric
+#              ^tested transitive)
+#-->
+#   (<s> ^operator <op> + =)
+#   (<op> ^name add-new-axiom
+#         ^axiom-to-add <axiom>)
+#}
+

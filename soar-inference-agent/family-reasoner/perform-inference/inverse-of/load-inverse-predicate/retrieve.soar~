@@ -1,0 +1,9 @@
+# Note that if retrieval retrieves, automatically leaves substate.
+# Hence all we need to worry about is failure condition.
+sp {load-inverse-predicate*propose*failed
+   (state <s> ^name load-inverse-predicate
+              ^smem.result.failure)
+-->
+   (write |Assertion failed: inverse was found but not loaded? Programmer error?| (crlf))
+   (halt)
+}

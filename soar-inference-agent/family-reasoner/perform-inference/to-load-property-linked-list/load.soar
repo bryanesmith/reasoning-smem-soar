@@ -1,0 +1,67 @@
+sp {to-load-property-linked-list*propose*load
+   (state <s> ^name to-load-property-linked-list
+             -^smem.command.query
+              ^superstate.to-load-property-linked-list <desc>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load
+         ^to-load-property-linked-list <desc>)
+}
+
+sp {to-load-property-linked-list*apply*load
+   (state <s>  ^name to-load-property-linked-list
+               ^operator <op>
+               ^smem.command <command>)
+   (<op> ^name load
+         ^to-load-property-linked-list <desc>)
+   (<desc> ^name-for-augmentation <aug-name>
+           ^property-name <prop-name>)
+-->
+   (<command> ^query <query>)
+   (<query> ^propertyName <prop-name>
+            ^type <wildcard>)
+   #(write |DEBUG> Searching for property-linked-list: | <prop-name> (crlf))
+}
+
+sp {to-load-property-linked-list*propose*load*success
+   (state <s> ^name to-load-property-linked-list
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+}
+
+sp {to-load-property-linked-list*apply*load*success
+   (state <s> ^name to-load-property-linked-list
+              ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+   (<ss> ^to-load-property-linked-list <desc>)
+   (<desc> ^name-for-augmentation <aug-name>
+           ^property-name <prop-name>)
+   (<retrieved> ^propertyName <prop-name>)
+-->
+   (<ss> ^to-load-property-linked-list <desc> -)
+   (<ss> ^<aug-name> <retrieved>)
+   #(write |DEBUG> Found property linked list: | <prop-name> |. Added as ^| <aug-name> |  to parent state and removed job.| (crlf))
+}
+
+sp {to-load-property-linked-list*apply*load*success*clean-up
+   (state <s> ^name to-load-property-linked-list
+              ^operator.name retrieve-success
+              ^smem.command <command>)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   #(write |DEBUG> Cleaned up query for property-linked-list.| (crlf))
+}
+
+sp {to-load-property-linked-list*propose*load*failure
+   (state <s> ^name to-load-property-linked-list
+              ^smem.result.failure) 
+-->
+   (write |ASSERTION FAILED: failed to find property linked list. Programmer error?| (crlf))
+   (halt)
+}

@@ -1,0 +1,18 @@
+sp {perform-inference*propose*load-transitive-property
+   (state <s> ^name perform-inference
+             -^transitive-property
+             -^to-load-by-name)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load-transitive-property)
+}
+
+sp {apply*load-transitive-property
+   (state <s> ^name perform-inference
+              ^operator.name load-transitive-property)
+-->
+   (<s> ^to-load-by-name <job>)
+   (<job> ^name-for-augmentation transitive-property
+          ^name TransitiveProperty) 
+    #(write |DEBUG> Added job to load TransitiveProperty.| (crlf)) 
+}

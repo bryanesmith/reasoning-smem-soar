@@ -1,0 +1,27 @@
+sp {elaborate*state*name
+   (state <s> ^superstate.operator.name <name>)
+-->
+   (<s> ^name <name>)
+}
+
+sp {elaborate*state*top-state
+   (state <s> ^superstate.top-state <ts>)
+-->
+   (<s> ^top-state <ts>)
+}
+
+# Add inference WME to every state
+sp {elaborate*state*inference
+   (state <s> ^superstate <ss>)
+-->
+   
+   (<s> ^inference <inference>)
+   (<inference> ^query <query>)
+}
+
+# Monitor for any value set to inference result
+sp {monitor*inference*result
+   (state <s> ^inference.result {<result> <> nil})
+-->
+   (write |Inference result: | <result> (crlf))
+}

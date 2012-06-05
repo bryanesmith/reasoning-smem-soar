@@ -1,0 +1,66 @@
+# In the property name list, find the last node
+sp {add-property-list*propose*find-prev-last-node
+   (state <s> ^name add-property-list
+              ^superstate.superstate <sss>
+             -^prev-last-node
+             -^smem.command.query)
+   (<sss> ^axiom-to-add <axiom>)
+   (<axiom> ^subject <subject>
+            ^object <object>
+            ^predicate <predicate>)
+   (<predicate> ^name <predicate-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name find-prev-last-node
+         ^propertyName <predicate-name>)
+}
+
+sp {add-property-list*apply*find-prev-last-node
+   (state <s> ^name add-property-list
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name find-prev-last-node
+         ^propertyName <predicate-name>)
+-->
+   (<command> ^query <query>)
+   (<query> ^propertyName <predicate-name>
+            ^next nil)
+   #(write |DEBUG> Searching for last node in property list for: | <predicate-name> (crlf))
+}
+
+sp {add-property-list*propose*find-prev-last-node*success
+   (state <s> ^name add-property-list
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve
+         ^prev-last-node <retrieved>)
+}
+
+sp {add-property-list*apply*find-prev-last-node*success
+   (state <s> ^name add-property-list
+              ^operator <op>)
+   (<op> ^name retrieve 
+         ^prev-last-node <retrieved>)
+-->
+   (<s> ^prev-last-node <retrieved>)
+   #(write |DEBUG> Found last node for property linked list: | <retrieved> (crlf))
+}
+
+sp {add-property-list*apply*find-prev-last-node*success*clean-up
+   (state <s> ^name add-property-list
+              ^operator.name retrieve
+              ^smem.command <command>)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   #(write |DEBUG> Cleaned up after finding last node for property linked list.| (crlf))
+}
+
+sp {add-property-list*propose*failed
+   (state <s> ^name add-property-list
+              ^smem.result.failure)
+-->
+   (write |ASSERTION FAILED: Cannot find last node in property list. Programmer error?| (crlf))
+   (halt)
+}

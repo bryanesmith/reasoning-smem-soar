@@ -1,0 +1,6 @@
+sp {perform-inference*propose*to-add
+   (state <s> ^to-add <to-add>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name to-add)
+}

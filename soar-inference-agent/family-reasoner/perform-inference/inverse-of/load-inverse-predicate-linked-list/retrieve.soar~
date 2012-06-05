@@ -1,0 +1,41 @@
+sp {load-inverse-predicate-linked-list*propose*retrieve*success
+   (state <s> ^name load-inverse-predicate-linked-list
+              ^smem.result.retrieved <retrieved>) 
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>) 
+}
+
+sp {load-inverse-predicate-linked-list*apply*retrieve*success 
+   (state <s> ^name load-inverse-predicate-linked-list  
+              ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name retrieve-success
+         ^retrieved <retrieved>)
+-->
+   (<ss> ^inverse-predicate-linked-list <retrieved>) 
+   (write |DEBUG> Retrieved inverse-predicate-linked-list: | <retrieved> (crlf)) 
+}
+
+sp {load-inverse-predicate-linked-list*propose*retrieve*failure
+   (state <s> ^name load-inverse-predicate-linked-list
+              ^smem.result.failure)
+-->
+   (write |Assertion failed. Failed to retrieve inverse-predicate-linked-list. Programmer error?| (crlf))
+   (halt)
+}
+
+
+# Clean up
+sp {load-inverse-predicate-linked-list*apply*retrieve*clean-up*success
+   (state <s> ^name load-inverse-predicate-linked-list
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name retrieve-success)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   (write |DEBUG> Cleaned up query for inverse-predicate-linked-list (success) | (crlf))
+}
+

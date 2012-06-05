@@ -1,0 +1,80 @@
+sp {add-new-axiom*propose*finished
+   (state <s> ^name add-new-axiom
+              ^added axiom
+              ^added property-list)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished)
+}
+
+# Remove: ss.subject
+sp {add-new-axiom*apply*finished*remove-subject
+   (state <s> ^name add-new-axiom
+              ^superstate <ss>
+              ^operator <op>)
+   (<ss> ^subject <subject>)
+   (<op> ^name finished)
+-->
+   (<ss> ^subject <subject> -)
+    #(write |DEBUG> Finished adding axiom, removing superstate: subject| (crlf))
+}
+
+# Remove: ss.object
+sp {add-new-axiom*apply*finished*remove-object
+   (state <s> ^name add-new-axiom
+              ^superstate <ss>
+              ^operator <op>)
+   (<ss> ^object <object>)
+   (<op> ^name finished)
+-->
+   (<ss> ^object <object> -)
+    #(write |DEBUG> Finished adding axiom, removing superstate: object| (crlf))
+}
+
+# Remove: ss.predicate
+sp {add-new-axiom*apply*finished*remove-predicate
+   (state <s> ^name add-new-axiom
+              ^superstate <ss>
+              ^operator <op>)
+   (<ss> ^predicate <predicate>)
+   (<op> ^name finished)
+-->
+   (<ss> ^predicate <predicate> -)
+    #(write |DEBUG> Finished adding axiom, removing superstate: predicate| (crlf))
+}
+
+# Remove: ss.property-linked-list
+sp {add-new-axiom*apply*finished*remove-property-linked-list
+   (state <s> ^name add-new-axiom
+              ^superstate <ss>
+              ^operator <op>)
+   (<ss> ^property-linked-list <property-linked-list>)
+   (<op> ^name finished)
+-->
+   (<ss> ^property-linked-list <property-linked-list> -)
+    #(write |DEBUG> Finished adding axiom, removing superstate: property-linked-list| (crlf))
+}
+
+# Remove: ss.axiom-to-add
+sp {add-new-axiom*apply*finished*remove-axiom-to-add
+   (state <s> ^name add-new-axiom
+              ^superstate <ss>
+              ^operator <op>)
+   (<ss> ^axiom-to-add <axiom-to-add>)
+   (<op> ^name finished)
+-->
+   (<ss> ^axiom-to-add <axiom-to-add> -) 
+    #(write |DEBUG> Finished adding axiom, removing superstate: axiom-to-add | (crlf))
+}
+
+# Remove: ss.tested
+sp {add-new-axiom*apply*finished*remove-tested
+   (state <s> ^name add-new-axiom
+              ^superstate <ss>
+              ^operator <op>)
+   (<ss> ^tested <tested-val>)
+   (<op> ^name finished)
+-->
+   (<ss> ^tested <tested-val> -)
+    #(write |DEBUG> Finished adding axiom, removing superstate: tested | <tested-val> (crlf))
+} 

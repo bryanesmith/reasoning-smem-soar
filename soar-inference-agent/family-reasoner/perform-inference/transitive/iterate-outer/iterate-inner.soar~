@@ -1,0 +1,8 @@
+sp {iterate-outer*propose*iterate-inner
+   (state <s> ^name iterate-outer
+              ^superstate.inner-property-ptr {<ptr> <> nil})
+   (<ptr> ^propertyName <property-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name iterate-inner)
+}

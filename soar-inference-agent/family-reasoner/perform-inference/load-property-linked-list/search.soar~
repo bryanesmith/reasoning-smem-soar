@@ -1,0 +1,24 @@
+sp {load-property-linked-list*propose*search
+   (state <s> ^name load-property-linked-list
+              ^superstate.superstate.inference.query <query>
+             -^smem.command.query)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name search
+         ^query <query>)
+}
+
+sp {load-property-linked-list*apply*search
+   (state <s> ^name load-property-linked-list
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name search
+         ^query <userquery>)
+   (<userquery> ^predicate <property-linked-list>)
+-->
+   (<command> ^query <query>)
+   (<query> ^propertyName <property-linked-list>
+            ^type <wildcard>)
+   (write |DEBUG> Searching for property-linked-list: | <property-linked-list> (crlf))
+}
+

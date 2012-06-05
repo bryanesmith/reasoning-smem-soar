@@ -1,0 +1,24 @@
+sp {iterate-inner*propose*next-inner
+   (state <s> ^name iterate-inner
+              ^searched axiom-1
+              ^searched axiom-2
+              ^superstate.superstate.inner-property-ptr {<ptr> <> nil})
+   (<ptr> ^propertyName <property-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name next-inner)
+}
+
+sp {iterate-inner*apply*next-inner
+   (state <s> ^name iterate-inner
+              ^superstate.superstate <sss>
+              ^operator <op>)
+   (<op> ^name next-inner)
+   (<sss> ^inner-property-ptr <prev>)
+   (<prev> ^next <next>)
+-->
+   (<sss> ^inner-property-ptr <prev> -)
+   (<sss> ^inner-property-ptr <next>)
+   #(write |DEBUG> Updated property pointer for inner loop in tranitive check.| (crlf))
+}
+

@@ -1,0 +1,19 @@
+sp {iterate-symmetric-property-linked-list*propose*next
+   (state <s> ^name iterate-symmetric-property-linked-list
+              ^searched true)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name next)
+}
+
+sp {iterate-symmetric-property-linked-list*apply*next 
+   (state <s> ^name iterate-symmetric-property-linked-list 
+         ^operator <op>
+         ^superstate <ss>)
+   (<op> ^name next)
+   (<ss> ^next-property <prev>
+         ^symmetric-node <snode>)
+   (<prev> ^next <next>)
+-->
+   (<ss> ^symmetric-node <snode> -)
+}

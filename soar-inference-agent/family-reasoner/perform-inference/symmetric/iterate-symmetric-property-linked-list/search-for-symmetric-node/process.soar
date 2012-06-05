@@ -1,0 +1,62 @@
+sp {search-for-symmetric-node*propose*process-found
+   (state <s> ^name search-for-symmetric-node
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name process
+         ^status found)
+}
+
+sp {search-for-symmetric-node*propose*process-not-found
+   (state <s> ^name search-for-symmetric-node
+              ^smem.result.failure)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name process
+         ^status not-found)
+}
+
+sp {search-for-symmetric-node*apply*process*clean-up
+   (state <s> ^name search-for-symmetric-node
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name process
+         ^status <status>)
+   (<command> ^query <query>)
+-->
+   (<command> ^query <query> -)
+   #(write |DEBUG> Cleaned up query. (status: | <status> |)| (crlf))
+}
+
+sp {search-for-symmetric-node*apply*process*set-flag
+   (state <s> ^name search-for-symmetric-node
+              ^operator <op>
+              ^superstate <ss>)
+   (<op> ^name process
+         ^status <status>)
+   (<ss> -^searched)
+-->
+   (<ss> ^searched true)
+   #(write |DEBUG> Set flag to note finished search. (status: | <status> |)| (crlf))
+}
+
+sp {search-for-symmetric-node*apply*process*not-found
+   (state <s>  ^name search-for-symmetric-node
+               ^superstate.superstate <sss>
+               ^operator <op>)
+   (<sss> ^superstate <ssss>
+          ^symmetric-node <snode>)
+   (<snode> ^subject <subject>
+            ^object <object>
+            ^propertyName <property-name>)
+   (<ssss> ^predicate <predicate>)
+   (<op> ^name process 
+         ^status not-found)
+-->
+   (<ssss> ^axiom-to-add <to-add>)
+   (<to-add> ^object <object>
+             ^subject <subject>
+             ^predicate <predicate>)
+   #(write |DEBUG> Found new symmetric property, | <property-name> |(| <subject> |,| <object> |). Submitting as job.| (crlf))
+}
+

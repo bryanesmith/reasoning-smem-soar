@@ -1,0 +1,32 @@
+sp {check-next-inverse*propose*finished-adding
+   (state <s> ^name check-next-inverse
+              ^to-add <axiom>
+              ^added axiom
+              ^added property-list)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished-adding
+         ^to-add <axiom>)
+}
+
+sp {check-next-inverse*apply*finished-adding 
+   (state <s> ^name check-next-inverse 
+         ^operator <op>)
+   (<op> ^name finished-adding 
+         ^to-add <axiom>) 
+-->
+   (<s> ^to-add <axiom> -)
+   (<s> ^added axiom -)
+   (<s> ^added property-list -)
+   (write |DEBUG> Finished adding axiom to SMem. Cleaned up flags.| (crlf))
+}
+
+sp {check-next-inverse*apply*finished-adding*set-flag
+   (state <s> ^name check-next-inverse  
+              ^operator.name finished-adding
+              ^superstate.superstate <sss>)
+   (<sss> -^flag success)
+-->
+   (<sss> ^flag success)
+   (write |DEBUG> Flagged success in inverse-of state.| (crlf))
+}

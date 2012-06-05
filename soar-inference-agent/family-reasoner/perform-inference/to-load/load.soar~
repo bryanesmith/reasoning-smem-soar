@@ -1,0 +1,61 @@
+sp {to-load*propose*load
+   (state <s> ^name to-load
+             -^smem.command.retrieve
+              ^superstate.to-load <node>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name load
+         ^to-load <node>)
+}
+
+sp {to-load*apply*load
+   (state <s> ^name to-load
+              ^operator <op>
+              ^smem.command <command>)
+   (<op> ^name load 
+         ^to-load <node>) 
+-->
+   (<command> ^retrieve <node>)
+   #(write |DEBUG> Retrieving node: | <node> (crlf))
+}
+
+sp {to-load*propose*load*success
+   (state <s> ^name to-load
+              ^smem.result.retrieved <retrieved>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name success
+         ^retrieved <retrieved>)
+}
+
+sp {to-load*apply*load*success
+   (state <s> ^name to-load
+              ^superstate <ss>
+              ^operator <op>)
+   (<op> ^name success 
+         ^retrieved <retrieved>)
+   (<ss> ^to-load <retrieved>)
+-->
+   (<ss> ^to-load <retrieved> -)
+   #(write |DEBUG> Retrieved node, removing job.| (crlf))
+}
+
+sp {to-load*apply*load*success*clean-up
+   (state <s> ^name to-load
+              ^operator.name success
+              ^smem.command <command>)
+   (<command> ^retrieve <retrieve>)
+-->
+   (<command> ^retrieve <retrieve> -)
+   #(write |DEBUG> Cleaning up after retrieving node.| (crlf))
+}
+
+sp {to-load*propose*load*failure
+   (state <s> ^name to-load
+              ^smem.result.failure <failure>)
+-->
+   (write |ASSERTION FAILED: Failed to load node. Programmer error?: | <failure> (crlf))
+   (halt)
+}
+
+

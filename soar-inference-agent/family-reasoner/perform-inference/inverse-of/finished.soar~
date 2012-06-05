@@ -1,0 +1,92 @@
+sp {inverse-of*propose*finished
+   (state <s> ^name inverse-of
+              ^next-inverse-node nil)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished)
+}
+
+sp {inverse-of*apply*finished*failed
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>
+             -^flag success)
+-->
+   (<ss> ^tested inverse-of)
+   (write |DEBUG> Failed to find any new relationships based on inverse properties.| (crlf))
+}
+
+sp {inverse-of*apply*finished*success
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>
+              ^flag success)
+-->
+   (<ss> ^tested inverse-of)
+   (write |DEBUG> Found new relationships based on inverse property.| (crlf))
+}
+
+# Remove: superstate all tested flags _except_ inverse-of.
+sp {inverse-of*apply*finished*success*remove-tested-flags
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>
+              ^flag success)
+   (<ss> ^tested {<tested-val> <> inverse-of})
+-->
+   (<ss> ^tested <tested-val> -)
+   (write |DEBUG> Found new relationships based on inverse property, so removed tested flag for: | <tested-val> (crlf))
+}
+
+# Remove: superstate subject
+sp {inverse-of*apply*finished*success*remove-subject
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>
+              ^flag success)
+   (<ss> ^subject <subject>)
+-->
+   (<ss> ^subject <subject> -)
+   (<ss> ^tested inverse-of)
+   (write |DEBUG> Found new relationships based on inverse property, so must reload: subject.| (crlf))
+}
+
+# Remove: superstate object
+sp {inverse-of*apply*finished*success*remove-object
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>
+              ^flag success)
+   (<ss> ^object <object>)
+-->
+   (<ss> ^subject <object> -)
+   (<ss> ^tested inverse-of)
+   (write |DEBUG> Found new relationships based on inverse property, so must reload: object.| (crlf))
+}
+
+# Remove: superstate property-linked-list
+sp {inverse-of*apply*finished*success*remove-property-linked-list
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>
+              ^flag success)
+   (<ss> ^property-linked-list  <property-linked-list>)
+-->
+   (<ss> ^property-linked-list  <property-linked-list> -)
+   (<ss> ^tested inverse-of)
+   (write |DEBUG> Found new relationships based on inverse property, so must reload: property-linked-list.| (crlf))
+}
+
+# Remove: superstate predicate
+sp {inverse-of*apply*finished*success*remove-predicate
+   (state <s> ^name inverse-of
+              ^operator.name finished
+              ^superstate <ss>
+              ^flag success)
+   (<ss> ^predicate <predicate>)
+-->
+   (<ss> ^predicate <predicate> -)
+   (<ss> ^tested inverse-of)
+   (write |DEBUG> Found new relationships based on inverse property, so must reload: predicate.| (crlf))
+}
+

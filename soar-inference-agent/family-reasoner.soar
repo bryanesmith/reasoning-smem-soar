@@ -1,0 +1,3 @@
+pushd family-reasoner
+source family-reasoner_source.soar
+popd

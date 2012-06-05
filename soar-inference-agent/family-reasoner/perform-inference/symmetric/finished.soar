@@ -1,0 +1,18 @@
+sp {symmetric*propose*finished
+   (state <s> ^name symmetric
+              ^next-property nil)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished)
+}
+
+sp {symmetric*apply*finished
+   (state <s> ^name symmetric
+               ^superstate <ss>
+               ^operator <op>)
+   (<op> ^name finished)
+-->
+   (<ss> ^tested symmetric)
+   #(write |DEBUG> Finished with symmetric check.| (crlf))
+}
+

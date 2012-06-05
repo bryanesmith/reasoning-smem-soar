@@ -1,0 +1,6 @@
+sp {perform-inference*propose*to-load-property-chain
+   (state <s> ^to-load-property-chain <desc>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name to-load-property-chain)
+}

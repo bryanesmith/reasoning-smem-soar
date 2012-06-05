@@ -1,0 +1,22 @@
+sp {directly-asserted*propose*success
+   (state <s> ^name directly-asserted
+              ^next-node {<next-node> <> nil}
+              ^superstate.subject <target-subject>
+              ^superstate.object <target-object>)
+   (<next-node> ^subject <target-subject>
+                ^object <target-object>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name success)
+}
+
+sp {apply*success
+   (state <s> ^name directly-asserted
+         ^operator.name success
+         ^next-node <next-node>
+         ^superstate.superstate.inference <inference>)
+-->
+   (<inference> ^result |true|)
+    #(write |DEBUG> Success. Found matching node in property linked list: | <next-node> (crlf))
+}
+

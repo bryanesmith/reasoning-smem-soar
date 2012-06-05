@@ -1,0 +1,50 @@
+sp {directly-asserted*propose*update-next*non-matching-subject
+   (state <s> ^name directly-asserted
+              ^next-node {<next-node> <> nil}
+              ^superstate.subject <target-subject>)
+   (<next-node> ^subject {<found-subject> <> <target-subject>})
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name update-next
+         ^reason |Subjects don't match|)
+}
+
+sp {directly-asserted*propose*update-next*non-matching-object
+   (state <s> ^name directly-asserted
+              ^next-node {<next-node> <> nil}
+              ^superstate.object <target-object>)
+   (<next-node> ^object {<found-object> <> <target-object>})
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name update-next
+         ^reason |Objects don't match|)
+   #(write |DEBUG> Objects don't match | <found-object> | vs. | <target-object> (crlf))
+}
+
+sp {directly-asserted*apply*update-next
+   (state <s> ^name directly-asserted
+         ^operator <op>
+         ^next-node <prev>) 
+   (<op> ^name update-next
+         ^reason <reason>)
+   (<prev> ^next <next>)
+-->
+   (<s> ^next-node <prev> -)
+   (<s> ^next-node <next>)
+  # (write |DEBUG>Non-matching node: | <reason> |. Trying next.| (crlf)) 
+}
+
+#sp {directly-asserted*apply*update-next
+#   (state <s> ^name directly-asserted
+#         ^operator <op>
+#         ^superstate <ss>)
+#   (<op> ^name update-next
+#         ^reason <reason>)
+#   (<ss> ^next-node <prev>)
+#   (<prev> ^next <next>)
+#-->
+#   (<ss> ^next-node <prev> -)
+#   (<ss> ^next-node <next>)
+#   (write |Non-matching node: | <reason> |. Trying next.| (crlf))
+#}
+

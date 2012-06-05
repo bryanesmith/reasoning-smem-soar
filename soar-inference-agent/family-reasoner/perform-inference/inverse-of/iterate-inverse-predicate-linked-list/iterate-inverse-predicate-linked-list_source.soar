@@ -1,0 +1,11 @@
+source elaborations.soar
+source check-next-inverse.soar
+pushd check-next-inverse
+source check-next-inverse_source.soar
+popd
+source load-next-inverse.soar
+pushd load-next-inverse
+source load-next-inverse_source.soar
+popd
+source load-object.soar
+source load-subject.soar

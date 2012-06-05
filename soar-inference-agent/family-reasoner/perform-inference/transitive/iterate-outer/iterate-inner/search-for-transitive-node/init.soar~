@@ -1,0 +1,24 @@
+sp {search-for-transitive-node*propose*init
+   (state <s> ^name search-for-transitive-node
+              ^superstate <ss>
+              ^superstate.transitive-axiom <axiom>
+             -^transitive-axiom)
+   (<axiom> ^label <label>)
+   (<ss> -^searched <label>
+          ^operator.label <label>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name init
+         ^transitive-axiom <axiom>)
+}
+
+sp {search-for-transitive-node*apply*init
+   (state <s> ^name search-for-transitive-node
+              ^operator <op>)
+   (<op> ^name init 
+         ^transitive-axiom <axiom>) 
+-->
+   (<s> ^transitive-axiom <axiom>)
+   (write |DEBUG> Inited transitive axiom to search: | <axiom> (crlf))
+}
+

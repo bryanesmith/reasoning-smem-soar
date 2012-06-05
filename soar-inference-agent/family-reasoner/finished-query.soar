@@ -1,0 +1,62 @@
+sp {family-reasoner*propose*finished-query
+   (state <s> ^name family-reasoner
+              ^inference <inference>)
+   (<inference> ^result <result>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name finished-query)
+}
+
+sp {family-reasoner*apply*finished-query*print-result
+   (state <s> ^name family-reasoner
+              ^inference <inference> 
+              ^operator.name finished-query)
+   (<inference> ^result <result>
+                ^query <query>)
+   (<query> ^subject <subject-name>
+            ^object <object-name>
+            ^predicate <predicate-name>)
+-->
+   (write (crlf))
+   (write |--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---| (crlf))
+   (write | | <predicate-name> |(| <subject-name> |,| <object-name> |)?: | <result> (crlf))
+   (write |--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---| (crlf))
+   (write (crlf)) 
+}
+
+sp {family-reasoner*apply*finished-query*next 
+   (state <s> ^name family-reasoner
+              ^next-query <prev> 
+              ^operator.name finished-query 
+              ^inference <inference>)
+   (<inference> ^result <result>
+                ^query <query>)
+   (<query> ^subject <subject-name>
+            ^object <object-name>
+            ^predicate <predicate-name>)
+   (<prev> ^next-query { <next> <> nil})
+-->
+   # Remove previous inference task
+   (<query> ^subject <subject-name> -
+            ^object <object-name> -
+            ^predicate <predicate-name> -)
+   
+   # Remove previous result
+   (<inference> ^result <result> -)
+   
+   # Update inference query
+   (<s> ^next-query <prev> -)
+   (<s> ^next-query <next>)
+}
+
+sp {family-reasoner*apply*finished-query*finished 
+   (state <s> ^name family-reasoner
+              ^next-query <prev>
+              ^operator.name finished-query)
+   (<prev> ^next-query nil)
+-->
+   (write |~ fin, no more queries ~| (crlf))
+   (halt)
+}
+
+

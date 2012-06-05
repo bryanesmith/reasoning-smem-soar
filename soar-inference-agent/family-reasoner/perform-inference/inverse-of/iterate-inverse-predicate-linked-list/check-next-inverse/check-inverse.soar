@@ -1,0 +1,88 @@
+#
+sp {check-next-inverse*propose*check-inverse
+   (state <s> ^name check-next-inverse
+              ^superstate.superstate.predicate <predicate>
+              ^superstate.superstate.next-inverse-node <next-inverse-node>
+             -^checked-next)
+   (<predicate> ^name <predicate-name>)
+   (<next-inverse-node> ^subject <inverse-subject>
+                        ^object <inverse-object>)
+   (<inverse-subject> ^name <inverse-subject-name>)
+   (<inverse-object> ^name <inverse-object-name>)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name check-inverse
+         ^inverse-object <inverse-object>
+         ^inverse-subject <inverse-subject>
+         ^predicate <predicate>
+         ^predicate-name <predicate-name>)
+}
+
+sp {check-next-inverse*monitor*check-inverse
+   (state <s> ^name check-next-inverse
+              ^operator <op>)
+   (<op> ^name check-inverse
+         ^inverse-object <inverse-object>
+         ^inverse-subject <inverse-subject>
+         ^predicate-name <predicate-name>)
+   (<inverse-object> ^name <inverse-object-name>)
+   (<inverse-subject> ^name <inverse-subject-name>)
+-->
+   #(write |DEBUG> Agent is wondering whether | <predicate-name> |(| <inverse-object-name> |,| <inverse-subject-name> |) exists in SMem yet...| (crlf))
+}
+
+sp {check-next-inverse*check-inverse*exists
+   (state <s> ^name check-next-inverse
+              ^operator <op>
+              ^superstate.superstate <sss>)
+   (<sss> ^superstate <ssss>)
+   (<op> ^name check-inverse
+         ^inverse-object <inverse-object>
+         ^inverse-subject <inverse-subject>
+         ^predicate-name <predicate-name>)
+   # This is the test
+   (<inverse-object> ^<predicate-name> <inverse-subject>)
+-->
+   (<s> ^checked-next true)
+   #(write |DEBUG> Axiom for | <predicate-name> | already exists.| (crlf))
+}
+
+sp {check-next-inverse*check-inverse*not-exists
+   (state <s> ^name check-next-inverse
+              ^operator <op>)
+   (<op> ^name check-inverse
+         ^inverse-object <inverse-object>
+         ^inverse-subject <inverse-subject>
+         ^predicate <predicate>
+         ^predicate-name <predicate-name>)
+   # This is the test
+   (<inverse-object> -^<predicate-name> <object>)
+-->
+   (<s>  ^checked-next true
+         ^axiom-to-add <axiom>)
+   (<axiom> ^predicate <predicate>
+            ^subject <inverse-object>
+            ^object <inverse-subject>)
+   #(write |DEBUG> Found new axiom for | <predicate-name> | that does not exist yet. Will add.| (crlf))
+}
+
+#sp {check-next-inverse*check-inverse*not-exists*load-if-needed
+#   (state <s> ^name check-next-inverse
+#              ^operator <op>)
+#   (<op> ^name check-inverse
+#         ^inverse-object <inverse-object>
+#         ^inverse-subject <inverse-subject>
+#         ^predicate <predicate>
+#         ^predicate-name <predicate-name>)
+#   # This is the test
+#   (<inverse-object> -^<predicate-name> <object>)
+#-->
+#   (<s>  ^checked-next true
+#         ^axiom-to-add <axiom>)
+#   (<axiom> ^predicate <predicate>
+#            ^subject <inverse-object>
+#            ^object <inverse-subject>)
+#   #(write |DEBUG> Found new axiom for | <predicate-name> | that does not exist yet. Will add.| (crlf))
+#}
+
+
